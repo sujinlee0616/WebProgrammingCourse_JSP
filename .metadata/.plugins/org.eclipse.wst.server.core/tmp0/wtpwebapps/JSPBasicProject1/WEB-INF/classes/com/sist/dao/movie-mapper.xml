@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!-- ORM(object Relational Mapping): DB연동 -->
+<!-- mapper는 DB 테이블 하나 마다 한 개씩 나옴 -->
+
+<!-- PreparedStatement, ResultSet 
+	 =================
+	  => SQL 			=> VO
+-->
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--XML에서의 namespace = Java에서의 package-->
+<!-- 
+	1. select
+	2. insert
+	3. update
+	4. delete
+	5. sql: 반복될 때 사용
+ -->
+
+<mapper namespace="com.sist.dao.movie-mapper">
+	<!-- XML 문장 저장 -->
+	<select id="movieAllData" resultType="MovieVO"> 
+	<!-- id: select가 여러개일 수도 있으니까 id로 구분 -->
+	<!-- resultType: 실행결과는 MovieVO에 채워라 -->
+		SELECT mno,title,poster
+		FROM movie
+		WHERE type=1
+	</select>
+	<select id="musicAllData" resultType="MusicVO">
+		SELECT *
+		FROM music_genie
+	</select>
+	
+</mapper>
+
+
+
+
+
+

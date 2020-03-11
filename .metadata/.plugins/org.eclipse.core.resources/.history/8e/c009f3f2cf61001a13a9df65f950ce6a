@@ -1,0 +1,14 @@
+package com.sist.dao;
+import java.util.*;
+
+import org.apache.ibatis.session.SqlSessionFactory;
+
+import java.io.*;
+
+public class MovieDAO {
+	private static SqlSessionFactory ssf;
+	// XML을 읽어서 저장해놓는 놈 
+	static{
+		
+	}
+}

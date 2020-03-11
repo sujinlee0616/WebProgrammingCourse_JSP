@@ -1,0 +1,3 @@
+<!-- ~~_ok.jsp 파일은 다 DB 처리하는 애들 ==> HTML 코드 없음  -->
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>

@@ -1,0 +1,4 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<session version="1.0">
+<refactoring comment="Rename resource &apos;JSPBasicProject2/WebContent/jsp&apos; to &apos;object&apos;" description="Rename resource &apos;jsp&apos;" flags="7" id="org.eclipse.ltk.core.refactoring.rename.resource" input="WebContent/jsp" name="object" stamp="1583804730952" updateReferences="true"/>
+</session>

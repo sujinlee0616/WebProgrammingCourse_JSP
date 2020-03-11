@@ -1,0 +1,29 @@
+package com.sist.dao;
+/* <Music_genie>
+ * MNO       NOT NULL NUMBER        
+RANK               NUMBER        
+TITLE              VARCHAR2(500) 
+SINGER             VARCHAR2(200) 
+ALBUM              VARCHAR2(300) 
+POSTER             VARCHAR2(260) 
+IDCREMENT          NUMBER        
+STATE              CHAR(6)       
+KEY                VARCHAR2(100) 
+HIT                NUMBER           
+ */
+public class MusicVO {
+	private int rank;
+	private String title;
+	private String singer;
+	private String album;
+	private String regdate;
+	private String time;
+	private String grade;
+	private String director;
+	private String actor;
+	private String story;
+	private int type;
+	
+	
+	
+}

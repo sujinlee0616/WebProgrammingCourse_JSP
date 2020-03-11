@@ -1,0 +1,114 @@
+<!-- 상세보기 -->
+<%@page import="com.sist.dao.BoardVO"%>
+<%@page import="com.sist.dao.BoardDAO"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8" %>
+<%
+	String no=request.getParameter("no");
+	String strPage=request.getParameter("page");
+	// no => DAO로 전송
+	BoardDAO dao = new BoardDAO();
+	// DAO에서 요청한 VO 하나를 받아온다.
+	BoardVO vo=dao.boardDetailData(Integer.parseInt(no),0);
+	// VO에 저장된 데이터를 HTML을 이용해서 출력
+%>
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title>Insert title here</title>
+<link rel="stylesheet" href="../css/bootstrap.min.css">
+<style type="text/css">
+.row{
+	margin: 0 auto;
+	width: 600px;
+}
+h2 {
+	text-align: center;
+}
+</style>
+<scrit type="text/javascript" src="http://code.jquery.com/jquery.js"></scrit>
+<script type="text/javascript">
+
+var i=0;
+$(function(){
+	$('#delBtn').click(function(){
+		//..
+	})
+});
+
+
+
+
+</script>
+</head>
+<body>
+	<div class="container">
+		<h2>내용보기</h2>
+		<div class="row">
+			<table class="table table-hover">
+				<tr>
+					<th width=20% class="text-center success">번호</th>
+					<td width=30% class="text-center"><%=vo.getNo() %></td>
+					<th width=20% class="text-center success">작성일</th>
+					<td width=30% class="text-center"><%=vo.getRegdate() %></td>
+				</tr>
+				<tr>
+					<th width=20% class="text-center success">이름</th>
+					<td width=30% class="text-center"><%=vo.getName() %></td>
+					<th width=20% class="text-center success">조회수</th>
+					<td width=30% class="text-center"><%=vo.getHit() %></td>
+				</tr>
+				<tr>
+					<th width=20% class="text-center success">제목</th>
+					<td width=30% class="text-center"><%=vo.getSubject() %></td>
+				</tr>
+				<tr>
+					<td colspan="4" class="text-left" valign="top" height="200">
+						<pre style="white-space:pre-wrap; background-color: white; border: none;"><%=vo.getContent() %></pre>
+					</td>
+				</tr>
+				<tr>
+					<td colspan="4" class="text-right">
+						<a href="reply.jsp?no=<%=vo.getNo() %>&page=<%=strPage %>" class="btn btn-xs btn-success">답변</a>
+						<a href="update.jsp?no=<%=vo.getNo() %>&page=<%=strPage %>" class="btn btn-xs btn-primary">수정</a>
+						<input type="button" class="btn btn-xs btn-danger" id="delBtn" value="삭제">
+						<a href="list.jsp?page=<%=strPage %>" class="btn btn-xs btn-info">목록</a>
+					</td>
+				</tr>
+				<tr id="del" style="display:none;">
+					<td colspan="4" class="text-right">
+						비밀번호:
+						<input type="password" id="pwd" size=10 class="input-sm">
+						<input type="hidden" id="no" value="<%=no%>">
+						<input type="button" value="삭제" class="btn btn-sm btn-danger" id="sendBtn">
+					</td>
+				</tr>
+			</table>
+		</div>
+	</div>
+</body>
+</html>
+
+<!-- 수정/삭제 시에, Ajax를 사용하지 않으면, alert 뜨면서 화면이 사라짐.=> alert 닫으면 화면이 다시 생김  -->
+<!-- 
+	<jQuery>
+	 - jQuery는 onload(HTML, CSS, image 다 불러진 상태)된 상태에서 동작함
+	 1) 함수
+	  - JavaScript: window.onload=function(){}
+	  - jQuery: $(function(){});
+	 2) 특정ID를 가진 요소 선택하기
+	  - JavaScript: document.getElementById("delBtn")
+	  - jQuery: $('#delBtn')
+	 3) 특정class를 가진 요소 선택하기 
+	  - JavaScript: document.getElementByClass()
+	  - jQuery: $()
+	 4) 특정 tag 가져오기
+	  - JavaScript: document.getElementByTagName()
+	  
+ -->
+
+
+
+
+
