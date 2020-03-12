@@ -1,7 +1,0 @@
-package com.sist.dao;
-import java.util.*;
-import java.io.*;
-
-public class MovieDAO {
-
-}
