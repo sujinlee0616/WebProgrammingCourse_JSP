@@ -13,7 +13,8 @@
  - JSPBasicProject8: include(), forward(), 검색  
  - JSPBasicProject9: Cookie를 이용한 최근 본 페이지 UI    
  - JSPBasicProject10: 게시판 pagination   
-  
+ - JSPBasicProject11: 회원가입   
+   아이디 중복체크, 우편번호 입력, 자식 window에서 부모 window로 값 전달 
   
 # WebProgrammingCourse_JSP
 Programming course supported by the South Korea government (Dec 02, 2019 - June 01, 2020)
@@ -30,3 +31,5 @@ Programming course supported by the South Korea government (Dec 02, 2019 - June 
  - JSPBasicProject8: include(), forward(), search    
  - JSPBasicProject9: Last visited page using cookie
  - JSPBasicProject10: Board pagination  
+ - JSPBasicProject11: Register as a member    
+   ID duplication check, input zip code and transfer value from child window to parent window
