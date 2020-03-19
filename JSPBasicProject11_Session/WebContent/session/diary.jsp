@@ -69,7 +69,7 @@ function change(){
 </head>
 <body>
 	<div class="container">
-		<h1 class="text-center"><%=sy %>년  <%=sm %>월 일정</h1>
+		<h1 class="text-center"><%=session.getAttribute("name")%>(<%=session.getAttribute("id") %>)&nbsp;<%=sy %>년  <%=sm %>월 일정</h1>
 		<div class="row">
 			<form method="POST" name="frm" action="diary.jsp">
 				<table class="table">
@@ -153,7 +153,13 @@ function change(){
 						if(i==day)
 							back="success";
 				%>
-						<td height="150" class="text-left <%=back%>" width=100 valing="top"><h3><font color="<%=color %>"><%=i %></font></h3></td>
+						<td height="150" class="text-left <%=back%>" width=100 valing="top">
+							<h3>
+								<font color="<%=color %>">
+								<a href="diary_login.jsp?"><%=i %></a>
+								</font>
+							</h3>
+						</td>
 				<%
 						week++;
 				if(week>6)
@@ -186,7 +192,7 @@ function change(){
 	     ==> 값을 가지고 올 때 return 형은 Object
 	  2) 저장된 값 읽기: Object getAttribute("key") 
 	     ==> key 반드시 형 변환해야 (제네릭스가 존재하지 않는다.)  
-	  3) 기간 설정: setMaxActiveInterval() <== ...............
+	  3) 기간 설정: setMaxInactiveInterval() 
 	   - default: 30분(1800s)  
 	  4) 저장된 내용 삭제 
 	   (1) 한 개를 삭제 

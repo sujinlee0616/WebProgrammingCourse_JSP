@@ -3,35 +3,40 @@
 <!DOCTYPE html>
 <html>
 <head>
-<meta charset="UTF-8">
-<title>Insert title here</title>
-<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<script type="text/javascript">
-// <우편번호 검색창 띄우기>
-function postfind(){
-	window.open("postfind.jsp","postfind","width=480, height=350, scrollbars=yes");
-	// window.open(주소,팝업창이름,옵션)
-}
-
-// <ID 중복검사>
-function idcheck(){
-	window.open("idcheck.jsp","idcheck","width=380, height=240, scrollbars=no");
-	// window.open(주소,팝업창이름,옵션)
-}
-
-
-</script>
-<style type="text/css">
-.row{margin: 0px auto; width: 700px;}
-</style>
+	<meta charset="UTF-8">
+	<title>Insert title here</title>
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
+	
+	<script type="text/javascript">
+	// <우편번호 검색창 띄우기>
+	function postfind(){
+		window.open("postfind.jsp","postfind","width=480, height=350, scrollbars=yes");
+		// window.open(주소,팝업창이름,옵션)
+	}
+	// <ID 중복검사>
+	function idcheck(){
+		window.open("idcheck.jsp","idcheck","width=380, height=240, scrollbars=no");
+		// window.open(주소,팝업창이름,옵션)
+	}
+	// <회원가입 버튼 클릭 시>
+	function join(){
+		// 유효성 검사 - 생략
+		// submit 
+		document.join_frm.submit();
+	}
+	
+	</script>
+	<style type="text/css">
+	.row{margin: 0px auto; width: 700px;}
+	</style>
 </head>
 <body>
 	<div class="container">
 		<h1 class="text-center">회원가입</h1>
 		<div class="row">
-			<form name="join_frm">
+			<form name="join_frm" action="join_ok.jsp" method="post">
 				<table class="table table-hover">
 					<tr>
 						<th width=15% class="danger text-right">ID</th>
@@ -115,7 +120,8 @@ function idcheck(){
 					</tr>
 					<tr>
 						<td colspan="2" class="text-center">
-							<input type="button" value="회원가입" class="btn btn-sm btn-info">
+							<input type="button" value="회원가입" class="btn btn-sm btn-info" 
+							onclick="join()">
 							<input type="button" value="취소" class="btn btn-sm btn-success"
 							onclick="javascript:history.back()">
 						</td>
@@ -128,8 +134,6 @@ function idcheck(){
 
 </body>
 </html>
-
-
 
 
 <%-- [member 테이블]
@@ -148,6 +152,19 @@ REGDATE           DATE
 ADMIN             CHAR(1) 
  --%>
 
-
+<!-- <JavaScript>
+	 - 태그에 접근: 계층구조
+	  
+		window
+		  ┃
+		document : HTML 갖고 있는 애...
+		  ┃
+		form
+		  ┃
+		input, select, textarea
+ -->
+ 
+ 
+ 
 
 
