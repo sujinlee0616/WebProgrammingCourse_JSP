@@ -17,7 +17,9 @@
    회원가입 - 아이디 중복체크, 우편번호 입력, 자식 window에서 부모 window로 값 전달   
    로그인 - Session으로 로그인 시 받은 정보 유지 
  - JSPMiddleProject1: EL(Expression Language)   
-  
+ - JSPMiddleProject2: JSTL     
+ - JSPMiddleProject3: JSTL, Model         
+
 # WebProgrammingCourse_JSP
 Programming course supported by the South Korea government (Dec 02, 2019 - June 01, 2020)
     
@@ -35,3 +37,5 @@ Programming course supported by the South Korea government (Dec 02, 2019 - June 
  - JSPBasicProject10: Board pagination  
  - JSPBasicProject11: Session, sign up, login     
  - JSPMiddleProject1: EL(Expression Language)     
+ - JSPMiddleProject2: JSTL   
+ - JSPMiddleProject3: JSTL, Model   
