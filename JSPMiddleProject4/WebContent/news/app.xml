@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans SYSTEM 'app.dtd'>
+<beans>
+	<bean class="com.sist.dao.BoardDAO" id="bDao"/>
+	<bean class="com.sist.dao.MemberDAO" id="mDao"/>
+</beans>
+
+<!-- 
+	<!DOCTYPE beans ~~~~ >
+	 ============= 
+	  	최상위태그가 <beans>
+	 
+	<!DOCTYPE mapper ~~~~ >
+	 =============== 
+	 	최상위 태그가 <mapper>
+	 	
+	<!DOCTYPE html ~~~~> : HTML4 문서 처음에 보면 나오는 코드..
+	 =============== 
+	 	최상위 태그가 <html>
+ -->
+
+
+

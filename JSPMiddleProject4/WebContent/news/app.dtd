@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- 
+	<beans>
+		<bean id="" class="" jsp="" test="A"/>
+		<bean id="" class="" test="A"/>
+		<bean id="" class="" jsp="" test="A"/>
+		<bean id="" class="" test="A"/>
+		<bean id="" class="" test="B"/>
+	</beans>
+
+
+	# Case1
+	[DTD]
+		<!ELEMENT a(b)>
+	[XML] 
+		<a>
+			<b></b> 
+		</a>
+	
+	# Case2
+	[DTD]
+		<!ELEMENT c (#PCDATA)>
+	[XML] 
+		<c>문자열</c>
+	
+	# Case3 - empty tag
+	[DTD]
+		<!ELEMENT d EMPTY> 
+	[XML]
+		<d/>
+	
+	ID
+	CDATA
+	NOTATION
+	REF
+	REFS
+-->
+
+<!ELEMENT beans (bean+)>
+<!ELEMENT bean EMPTY>
+<!--<!ATTLIST bean id ID "admin" class CDATA "class1"> -->
+<!ATTLIST bean id ID #REQUIRED 
+			   class CDATA #REQUIRED
+			   jsp CDATA #IMPLIED
+			   test CDATA #FIXED 'A'>
+
+			 	
+
+<!-- 
+	<DTD 속성선언>
+	 1. 속성타입
+	  - ID: UNIQUE. 이 타입의 속성값은 하나뿐인 아이디(id)임.
+	  - CDATA: 문자열 (공백 허용O)
+	  - NOTATION: 문자열 (공백 허용X)
+	  - ex) <a href="/aaa.jsp" class="btn btn-sm btn-primary"> 
+	        ==> href:NOTATION. class: CDATA.
+	  - IDREF: 참조.
+	 2. 속성값 정의
+	  - #REQUIRED: NOT NULL. 
+	  - #IMPLIED: NULL 허용.
+	  - #FIXED: default 값을 지정해줌. 
+	  
+--> 
+
+
+
+
+
+

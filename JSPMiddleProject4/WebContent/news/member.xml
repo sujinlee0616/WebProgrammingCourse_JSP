@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE member SYSTEM 'member.dtd'>
+<!-- 항상 DTD 갖다놓고 시작해야 -->
+<member>
+	<list>
+		<!-- 
+		<name></name>
+		<no></no>
+		이렇게 하면 Error. 순서 안 맞으니까.
+		 -->
+		<no>1</no>
+		<name>홍길동</name>
+		<sex>남자</sex>
+		<address>서울</address>
+		<hp>1111-1111</hp>
+		
+	</list>
+</member>
+
+
+
+
+
+
+

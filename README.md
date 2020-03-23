@@ -19,7 +19,9 @@
  - JSPMiddleProject1: EL(Expression Language)   
  - JSPMiddleProject2: JSTL     
  - JSPMiddleProject3: JSTL, Model         
-
+ - JSPMiddleProject4: XML, DTD   
+ - JSPMiddleProject5: MyBatis   
+   
 # WebProgrammingCourse_JSP
 Programming course supported by the South Korea government (Dec 02, 2019 - June 01, 2020)
     
@@ -39,3 +41,5 @@ Programming course supported by the South Korea government (Dec 02, 2019 - June 
  - JSPMiddleProject1: EL(Expression Language)     
  - JSPMiddleProject2: JSTL   
  - JSPMiddleProject3: JSTL, Model   
+ - JSPMiddleProject4: XML, DTD   
+ - JSPMiddleProject5: MyBatis    

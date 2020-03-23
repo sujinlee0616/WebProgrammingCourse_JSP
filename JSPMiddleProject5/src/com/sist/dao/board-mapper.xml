@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- board-mapper.xml: board관련. PreparedStatement, ResultSet -->
+<!DOCTYPE mapper 
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ <mapper namespace="com.sist.dao.board-mapper">
+ 	<!--  목록 
+ 		
+ 		public int idcheck(String id)
+ 		===> resultType="int" parameterTYpe="String"
+ 	
+ 		Map map = new HashMap();
+ 		map.put("start",10);
+ 		map.put("end",1); 	
+ 		
+ 		#{start} ==> map.get("start")
+ 		#{end} ==> map.get("end")
+ 		
+ 		public List<BoardVO> boardListData(Map map) 
+ 		
+ 		<리턴형>
+ 		List<BoardVO> ==> selectList()
+ 		BoardVO ==> selectOne()
+ 	-->
+ 	<select id="boardListData" resultType="BoardVO" parameterType="java.util.Map">
+ 		SELECT no,subject,name,regdate,hit,num 
+ 		FROM (no,subject,name,regdate,hit,rownum as num 
+ 		FROM (no,subject,name,regdate,hit
+ 		FROM board ORDER BY no DESC))
+ 		WHERE num BETWEEN #{start} AND #{end}
+ 	</select>
+ 	<!--
+ 		public BoardVO boardDetailData(int no) <== 이 매개변수가 #{no}
+ 		{	   ======					====
+ 		 		리턴형 ==> resultType		매개변수 ==> 얘는 parameterType
+ 		} 	
+ 	 -->
+ 	<select id="boardDetailData" resultType="BoardVO" parameterType="int">
+ 		SELECT * FROM board
+ 		WHERE no=#{no} 
+ 	</select>
+ 	
+ 	<!-- 
+ 		public void boardInsert(BoardVO vo)
+ 	 -->
+ 	<!-- <insert id="boardInsert" parameterType="BoardVO"></insert> -->
+ 	
+ 	 <!-- 
+ 		public void boardUpdate(BoardVO vo)
+ 	 -->
+ 	<!-- <update id="boardUpdate" parameterType="BoardVO"></update> -->
+ 	
+ 	 <!-- 
+ 		public void boardDelete(int no)
+ 	 -->
+ 	<!-- <delete id="boardDelete" parameterType="int"></delete> -->
+ 
+ </mapper>
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+

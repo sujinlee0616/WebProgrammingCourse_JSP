@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- ex) 이런 XML의 DTD는 어떻게 되어있을까?
+<member>
+		<list>
+			<no></no>
+			<name></name>
+			<sex></sex>
+			<address></address>
+			<tel></tel>
+			<content></content>
+		</list>
+		<list>
+			<no></no>
+			<name></name>
+			<sex></sex>
+			<address></address>
+			<tel></tel> 
+		</list>
+		<list>
+			<no></no>
+			<name></name>
+			<sex></sex>
+			<address></address>
+			<hp></hp>
+			<content></content>
+		</list>
+	</member>
+ -->
+
+<!ELEMENT member (list)+>
+<!ELEMENT list (no,name,sex,address,(hp|tel),content?)>
+<!ELEMENT no (#PCDATA)>
+<!ELEMENT name (#PCDATA)>
+<!ELEMENT sex (#PCDATA)>
+<!ELEMENT address (#PCDATA)>
+<!ELEMENT hp (#PCDATA)>
+<!ELEMENT tel (#PCDATA)>
+<!ELEMENT content (#PCDATA)>
+
+
+<!--
+	<DTD>
+	0. 스키마
+	- XML은 다른 마크업 언어를 만드는데 사용되는 다목적 마크업 언어이다. 
+	- 이렇게 다른 언어를 정의하기 위해서는 먼저 해당 언어에 필요한 요소와 속성을 파악해야만 하는데,
+	    이러한 정보들의 집합을 스키마(schema)라고 부름.
+	- 스키마는 일관성 있는 XML 문서를 유지하는데 아주 중요한 역할을 한다. 
+	- XML에서 스키마를 작성할 때에는, DTD 또는 XML 스키마(XSD)를 사용한다.
+	
+	1. DTD란?
+	- DTD: Document Type Definition. 문서 타입 정의.
+	- DTD는 XML 문서의 구조 및 해당 문서에서 사용할 수 있는 적법한 요소와 속성을 정의한다. 
+	- DTD는 엔티티를 정의할 수 있으며, 빠른 개발을 위한 내부 DTD를 사용할 수 있다.
+	
+	2. DTD 사용 목적
+	- DTD를 사용하여 새로운 XML 문서의 구조를 정의함으로써 새로운 문서 타입을 만들 수 있다.
+	- 이렇게 생성된 DTD는 새로운 문서 타입을 이용한 데이터의 교환에서 표준으로써 활용된다.
+	- 또한, 응용 프로그램은 DTD의 정의에 따라 XML 문서의 구문 및 구조에 대한 유효성을 검사할 수 있다.
+	
+	3. DTD element 선언 
+	 1) element 선언
+	  - <!ELEMENT 요소이름 요소카테고리>
+ 	  - 또는, <!ELEMENT 요소이름 (요소내용)>
+	 2) empty element 선언
+	  - <!ELEMENT 요소이름 EMPTY>
+	  - ex) <!ELEMENT line EMPTY>
+	       ==> XML 파일에서 <line>요소는 어떠한 콘텐츠도 가지지 않는 빈 요소임.  
+	 3) 자식 element를 가진 element를 선언
+	   (1) 자식이 1개
+	    - <!ELEMENT 요소이름 (자식요소이름)>
+	    - ex) <!ELEMENT parent (child)>
+	   (2) 자식이 여러개
+	    - <!ELEMENT 요소이름 (자식요소이름1, 자식요소이름2, ...)>
+	    - ex) <!ELEMENT body (head, body, arm, leg)>
+	 4) default: 해당 요소를 반드시 한 번만 사용해야. ★★
+	 5) +: 해당 태그를 반드시 한 번 이상을 사용해야. ★★
+	 6) *: 0번 이상 사용해야. ★★
+	 7) ?: 사용할 수도 있고 사용하지 않을 수도 있다. (0번 또는 1번 사용) ★★
+	    - ex) table(caption?,tr+): caption은 0번 또는 1번 사용  ==> 캡션은 table 안에서 토탈 0 또는 1번 사용 
+	    	  table(caption?,tr)+: (caption은 0번 또는 1번 사용, tr은 1번 사용) 요 세트가 1번 이상 사용
+	    	                       ==> 캡션은 세트에는 0 또는 1번 사용되지만 여러 셋트일수 있으니까 
+                                       table 안에서 전체적으로 봤을 때 캡션은 여러개일 수 있다.
+	 8) |: 선택. ★
+	  - ex) <!ELEMENT fruit (watermelon, (banana|strawberry))>
+	        ==> parent인 <fruit> 태그는 자식요소 <watermelon>를 1개만 가진다. 
+	                        또 다른 자식요소로는 <banana> 또는 <strawberry> 중 하나만 가진다. 
+
+	
+-->

@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper>
+	<!-- mapper element에 마우스 오버하면 아래와 같이 dtd가, xml이 사용할 수 있는 적법한 요소와 속성을 정의해놓은 것을 볼 수 있다.
+		 (cache-ref | cache | resultMap* | parameterMap* | sql* | insert* | update* | delete* | select*)+
+	 -->
+	<select id=""></select>
+		<!-- 마찬가지로, select에 마우스 오버해도 아래와 같이 dtd가, xml이 사용할 수 있는 적법한 요소와 속성을 정의해놓은 것을 볼 수 있다.
+			Content Model : (include | trim | where | set | foreach | choose | if | bind)*
+		 -->
+</mapper>
