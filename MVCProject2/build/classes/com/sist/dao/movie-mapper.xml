@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.dao.movie-mapper">
+	<select id="movieListData" resultType="MovieVO"> 
+		SELECT mno,poster,title,num 
+ 		FROM (SELECT mno,poster,title,rownum as num 
+ 		FROM (SELECT mno,poster,title
+ 		FROM movie ORDER BY mno ASC))
+ 		WHERE num BETWEEN #{start} AND #{end}
+	</select>	
+	<select id="movieTotalPage" resultType="int">
+ 		SELECT CEIL(COUNT(*)/9.0) FROM movie
+ 	</select>
+</mapper>
+
+
+
+
+
+

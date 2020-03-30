@@ -20,7 +20,9 @@
  - JSPMiddleProject2: JSTL     
  - JSPMiddleProject3: JSTL, Model         
  - JSPMiddleProject4: XML, DTD   
- - JSPMiddleProject5: MyBatis   
+ - JSPMiddleProject5: MyBatis    
+ - MVCProject1: MVC 이론   
+ - MVCProject2: MVC실습 - MVC 구조로 게시판 만들기, 영화 리스트 출력   
    
 # WebProgrammingCourse_JSP
 Programming course supported by the South Korea government (Dec 02, 2019 - June 01, 2020)
@@ -43,3 +45,5 @@ Programming course supported by the South Korea government (Dec 02, 2019 - June 
  - JSPMiddleProject3: JSTL, Model   
  - JSPMiddleProject4: XML, DTD   
  - JSPMiddleProject5: MyBatis    
+ - MVCProject1: MVC theory   
+ - MVCProject2: MVC practice - Make board and movie list.   

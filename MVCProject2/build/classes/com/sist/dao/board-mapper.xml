@@ -1,0 +1,105 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- board-mapper.xml: board관련. PreparedStatement, ResultSet -->
+<!DOCTYPE mapper 
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ <mapper namespace="com.sist.dao.board-mapper">
+ 	<!-- mapper.xml 관련 내용: https://mybatis.org/mybatis-3/ko/sqlmap-xml.html -->
+ 	<!--  목록 
+ 		
+ 		public int idcheck(String id)
+ 		===> resultType="int" parameterTYpe="String"
+ 	
+ 		Map map = new HashMap();
+ 		map.put("start",10);
+ 		map.put("end",1); 	
+ 		
+ 		#{start} ==> map.get("start")
+ 		#{end} ==> map.get("end")
+ 		
+ 		public List<BoardVO> boardListData(Map map) 
+ 		
+ 		<리턴형>
+ 		List<BoardVO> ==> selectList()
+ 		BoardVO ==> selectOne()
+ 	-->
+ 	<select id="boardListData" resultType="BoardVO" parameterType="java.util.Map">
+ 		SELECT no,subject,name,regdate,hit,TO_CHAR(regdate,'YYYY-MM-DD') as dbday,num 
+ 		<!-- TO_CHAR(regdate,'YYYY-MM-DD') as dbday : 컬럼이 없어도 값 저장 가능. 이 경우엔 dbday에 값 저장했다.-->
+ 		FROM (SELECT no,subject,name,regdate,hit,rownum as num 
+ 		FROM (SELECT no,subject,name,regdate,hit
+ 		FROM board ORDER BY no DESC))
+ 		WHERE num BETWEEN #{start} AND #{end}
+ 	</select>
+ 	<!--
+ 		public BoardVO boardDetailData(int no) <== 이 매개변수가 #{no}
+ 		{	   ======					====
+ 		 		리턴형 ==> resultType		매개변수 ==> 얘는 parameterType
+ 		} 	 		
+ 	 -->
+ 	<select id="boardTotalPage" resultType="int">
+ 		SELECT CEIL(COUNT(*)/10.0) FROM board
+ 	</select>
+
+ 	<sql id="where-no">
+ 		WHERE no=#{no}
+ 	</sql>
+ 	 
+ 	<!-- 글 상세보기 -->
+ 	<select id="boardDetailData" resultType="BoardVO" parameterType="int">
+ 		SELECT * FROM board
+ 		WHERE no=#{no}
+ 	</select>
+ 	
+ 	<!-- 글 조회수 증가 -->
+ 	<update id="hitIncrement" parameterType="int">
+       UPDATE board SET
+       hit=hit+1
+       <!-- WHERE no=#{no}를 아래와 같이 include해서 쓸 수도 있다. -->
+       <include refid="where-no"/>
+    </update>
+	<!-- tag 하나에 sql 문장 하나만 넣을 수 있다. tag 하나에 sql 두 개 이상 넣을 수X. -->
+ 	
+ 	<!-- 글 작성 -->
+ 	<!-- public void boardInsert(BoardVO vo)-->
+ 	<insert id="boardInsert" parameterType="BoardVO">
+ 		<selectKey keyProperty="no" resultType="int" order="BEFORE"> <!-- order="BEFORE": 먼저 실행해라.. -->
+ 			SELECT NVL(MAX(no)+1,1) as no FROM board <!-- 자동증가번호 생성 -->
+ 		</selectKey>
+ 		<!-- 이전에 rs.getInt(1) 이렇게 코딩하던거 이제 rs.getInt("컬럼명"); 요렇게 코딩함
+ 			 ==> 컬럼명이 반드시 일치해야... alias 되게 많이 쓴다... -->
+ 	 	INSERT INTO board VALUES(#{no},#{name},#{subject},#{content},#{pwd},SYSDATE,0)
+ 	</insert>
+ 	
+ 	<!-- 글 수정 버튼 누르면 no에서 데이터 가져오기 -->
+ 	<select id="boardUpdate" resultType="boardVO" parameterType="int">
+ 		SELECT * FROM board
+ 		WHERE no=#{no}
+ 	</select>
+ 
+ 	<!-- 글 수정해서 데이터 입력 -->
+ 	<!-- public void boardUpdate(BoardVO vo) -->
+ 	<update id="boardUpdateData" parameterType="BoardVO">
+ 		UPDATE board SET
+ 		name=#{name},subject=#{subject},content=#{content}
+     	WHERE no=#{no} 		
+ 	</update >
+ 	
+ 	<!-- public void boardDelete(int no) -->
+ 	<!-- <delete id="boardDelete" parameterType="int"></delete> -->
+ 
+ </mapper>
+ 
+
+
+
+
+
+
+
+
+
+
+
+
+

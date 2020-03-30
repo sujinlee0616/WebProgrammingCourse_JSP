@@ -1,19 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8" import="com.sist.model.*"%>
+    pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %> 
-<%
-	BoardModel model=new BoardModel();
-	model.boardListData(request);
-	/* MVC에서는 이 코드가 Controller 안에 들어간다. */
-	/* MVC에서는 이 코드가 Controller안에 아래와 같이 들어간다. <== MVC Project 1 참고
-	if(cmd.equals("list"))
-		{
-			ListModel model=new ListModel();
-			model.execute(request);
-		}	
-	*/
-%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -27,7 +15,7 @@
 		<div class="row">
 			<table class="table">
 				<tr>
-					<td><a href="insert.jsp" class="btn btn-sm btn-primary">새글</a></td>
+					<td><a href="insert.do" class="btn btn-sm btn-primary">새글</a></td>
 				</tr>
 			</table>
 			<table class="table table-hover">
@@ -42,7 +30,7 @@
 					<tr>
 						<td width=10% class="text-center">${vo.no }</td>
 						<td width=45% class="text-left">
-							<a href="detail.jsp?no=${vo.no }">${vo.subject }</a>
+							<a href="detail.do?no=${vo.no }">${vo.subject }</a>
 							<c:if test="${vo.dbday==today }">
 								<sup><font color="red">new</font></sup>
 							</c:if>
@@ -57,9 +45,9 @@
 				</c:forEach>
 				<tr>
 					<td class="text-center" colspan="5">
-						<a href="list.jsp?page=${curpage>1?curpage-1:curpage }" class="btn btn-xs btn-success">이전</a>
+						<a href="list.do?page=${curpage>1?curpage-1:curpage }" class="btn btn-xs btn-success">이전</a>
 						${curpage } page / ${totalpage } pages
-						<a href="list.jsp?page=${curpage<totalpage?curpage+1:curpage }" class="btn btn-xs btn-info">다음</a>
+						<a href="list.do?page=${curpage<totalpage?curpage+1:curpage }" class="btn btn-xs btn-info">다음</a>
 					</td>
 				</tr>
 			</table>
