@@ -1,3 +1,4 @@
+<!-- 항상 요거를 실행해야... 게시판이든 영화든 다 main.jsp 에 include해서 실행하는거다. -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -30,6 +31,12 @@
   
 <div class="container">
   <jsp:include page="${main_jsp }"></jsp:include>
+  <!-- 각 Model에서 request에다가 main_jsp 데이터를 싣어 줬음 ==> ${main_jsp}를 사용할 수 있다.
+  		각 Model에서 보낸 main_jsp 값은 "../member/자기파일.jsp" 이다.
+  		ex1) JoinModel에서 request에다가 싣어 보낸 main_jsp 값은 "../member/join.jsp"  
+  		    ==> < jsp : include page="../member/join.jsp" > 이 파일을 include 시킨다. 
+  		ex2) HomeModel에서  request에다가 싣어 보낸 main_jsp 값은 "home.jsp" 
+  		    ==> < jsp : include page="home.jsp" > 이 파일을 include 시킨다. -->
 </div>
 
 </body>

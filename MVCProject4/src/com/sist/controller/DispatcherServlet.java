@@ -74,10 +74,12 @@ public class DispatcherServlet extends HttpServlet {
 		{
 			response.sendRedirect(jsp.substring(jsp.indexOf(":")+1));
 		}
-		else
+		else 
 		{
 			RequestDispatcher rd=request.getRequestDispatcher(jsp);
 			rd.forward(request, response);
+			System.out.println("jsp="+jsp);
+			
 		}
 		
 	}
