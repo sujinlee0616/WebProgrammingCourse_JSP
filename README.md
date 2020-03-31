@@ -19,10 +19,15 @@
  - JSPMiddleProject1: EL(Expression Language)   
  - JSPMiddleProject2: JSTL     
  - JSPMiddleProject3: JSTL, Model         
- - JSPMiddleProject4: XML, DTD   
+ - JSPMiddleProject4: XML 기초 이론, DTD   
  - JSPMiddleProject5: MyBatis    
  - MVCProject1: MVC 이론   
+   Controller: if~else if로 각 Model-JSP 매칭 
  - MVCProject2: MVC실습 - MVC 구조로 게시판 만들기, 영화 리스트 출력   
+   Controller: map으로 각 Model-JSP 매칭 
+ - MVCProject3: MVC 구조로 맛집 카테고리/중간리스트/상세페이지 출력, 네이버 뉴스 XML 파싱
+   Controller: web.xml로 각 Model-JSP 매칭  
+ - MVCProject4: include     
    
 # WebProgrammingCourse_JSP
 Programming course supported by the South Korea government (Dec 02, 2019 - June 01, 2020)

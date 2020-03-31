@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- applicationContext: Spring에서 클래스 등록할 때 쓰는 애 -->
+<!-- 여기에 등록이 되어 있어야 Controller가 인식함 -->
+<beans>
+	<!-- bean: Spring에서는 우리가 만든 클래스를 'bean'이라고 함  -->
+	<bean id="category" class="com.sist.model.CategoryModel"/> <!-- id는 중복되면 안 됨 -->
+	<bean id="middle" class="com.sist.model.MiddleModel"/> 
+	<bean id="detail" class="com.sist.model.DetailModel"/>
+	<bean id="news" class="com.sist.news.NewsModel"/>
+	<!-- bean 낱개로 등록하자니 너무 많아서 귀찮네 ==> package 단위로 처리할 수도 있음 --> 
+</beans>

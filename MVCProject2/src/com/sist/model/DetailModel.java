@@ -16,6 +16,6 @@ public class DetailModel implements Model {
 		
 		request.setAttribute("vo", vo);
 		
-		return "board/detail.jsp";
+		return "board/detail.jsp"; // ==> forward됨  
 	}
 }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Config.xml: 공통 파일. Connection 만드는 파일 -->
+<!DOCTYPE configuration
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+<!-- !DOCTYPE configuration: <configuration> 태그가 최상위 태그. 이걸로 시작함 -->
+<configuration>
+	<!-- 기본셋팅: 1.typeAliases, 2. environments, 3.mappers -->
+	<properties resource="db.properties"/>
+	<typeAliases>
+		<typeAlias type="com.sist.dao.CategoryVO" alias="CategoryVO"/>
+		<typeAlias type="com.sist.dao.FoodVO" alias="FoodVO"/>
+	</typeAliases>
+	<environments default="development"> <!-- environments: DB 연동하는 환경설정 -->
+		<environment id="development">
+			<transactionManager type="JDBC"/> 
+				<!-- [transaction manager]
+				     - 커밋/롤백 어떻게 할거냐
+					 - COMMIT, ROLLBACK 처리하는 부분이 있음. 
+					 - 1) JDBC (auto commit) 2) MANAGED
+					 - ※참고: 트랜잭션이란, 데이터베이스의 상태를 변화시키기 해서 수행하는 '작업의 단위'를 뜻한다.  -->
+			<dataSource type="POOLED">
+				<!-- [DataSource]
+				  	 - 데이터베이스의 모든 정보를 가지고 있는 애.
+					 1) UNPOOLED: 연결, 해제 
+					 2) POOLED: ConnectionPOOL 주소 얻기, 반환  (maxActive(8), maxIdle(8))
+					 3) JNDI  -->
+			<property name="driver" value="${driver}"/>
+			<property name="url" value="${url}"/>
+			<property name="username" value="${username}"/>
+			<property name="password" value="${password}"/>
+				<!-- property는 resource인 db.properties에서 ${driver} 등 값을 받아온다. -->
+			</dataSource>
+		</environment>
+	</environments>
+	<mappers>
+		<mapper resource="com/sist/dao/food-mapper.xml"/>
+	</mappers>
+	
+</configuration>
+

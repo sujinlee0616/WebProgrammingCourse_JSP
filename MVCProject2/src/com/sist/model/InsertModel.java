@@ -6,6 +6,6 @@ public class InsertModel implements Model {
 	
 	@Override
 	public String execute(HttpServletRequest request){
-		return "board/insert.jsp";
+		return "board/insert.jsp"; // ==> forward됨 
 	}
 }

@@ -1,18 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://xmlns.jcp.org/xml/ns/javaee" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd" id="WebApp_ID" version="3.1">
-  <display-name>MVCProject2</display-name>
+  <display-name>MVCProject3</display-name>
   <!-- 
   [Controller 등록]
    - Controller.java 파일에서 @WebServlet을 없애고 XML에 아래와 같이 코딩했다. Spring에서는 이렇게 코딩한다.
-   - 이렇게 하면 Tomcat이 읽어가서 메모리 할당해준다. --> 
+   - 이렇게 하면 Tomcat이 읽어가서 메모리 할당해준다.
+   - web.xml에는 Servlet(Controller)만 등록한다. --> 
   <servlet>
-  	<servlet-name>mvc</servlet-name>
-  	<servlet-class>com.sist.controller.Controller</servlet-class> <!-- 패키지명+서블릿클래스명 --> <!-- 클래스 이름만 넘기면 메모리가 할당된다. -->
+  	<servlet-name>food</servlet-name>
+  	<servlet-class>com.sist.controller.DispatcherServlet</servlet-class>
+  	<init-param>
+  		<param-name>contextConfigLocation</param-name>
+  		<param-value>C:\webDev\webStudy\MVCProject3\WebContent\WEB-INF\config\applicationContext.xml</param-value> 
+  		<!-- <param-value>/WEB-INF/config/applicationContext.xml</param-value>-->
+  		<!-- applicationContext.xml의 경로 ==> 작업할 때 경로 맞춰라. -->
+  		<!-- 상대경로로 만들면 굳이 안 그래도 되지 않나...?? -->
+  	</init-param>
   </servlet>
+  <!-- Servlet을 mapping 시킴: url 주소를 뭘 주면 뭘 찾는지를 설정 -->
   <servlet-mapping>
-  	<servlet-name>mvc</servlet-name>  	
+  	<servlet-name>food</servlet-name>
   	<!-- servlet과 servlet-mapping의 servlet-name은 일치해야함 -->
-  	<url-pattern>*.do</url-pattern> <!-- *.do하면 servlet을 호출하겠다.  -->
+  	<url-pattern>*.do</url-pattern>
+  	<!--  -->
   </servlet-mapping>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>

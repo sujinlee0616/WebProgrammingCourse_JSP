@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- mapper: 데이터베이스 연결  ==> 테이블 갯수만큼 mapper를 만들어야. -->
+<!-- food-mapper.xml: preparedStatement와 ResultSet이 만들어지는 부분  
+					  ================   =========
+					  		SQL 		 resultType    -->
+<!DOCTYPE mapper 
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+ <!-- !DOCTYPE mapper: <mapper> 태그가 최상위 태그. 이걸로 시작함 -->
+ <mapper namespace="com.sist.dao.food-mapper">
+ 	<select id="categoryListData" resultType="CategoryVO">
+ 		<!-- resultType: 결과를 여기다가 담아라  -->
+ 		SELECT * FROM category 
+ 	</select>
+ 	<select id="middleListData" resultType="FoodVO" parameterType="int">
+ 		<!-- resultType: SQL 구문을 실행하면 결과값은 여기(FoodVO)다가 담아달라
+ 			 parameterType: #{}안의 값과 같은 형태여야.
+ 			 	==> #{cno}니까 int  -->
+ 		SELECT no,cno,title,address,tel,image,score
+ 		FROM foodhouse
+ 		WHERE cno=#{cno}
+ 		<!-- mapper에서는 ? 대신 #{} 준다 -->
+ 	</select>
+ 	<select id="detailData" resultType="FoodVO" parameterType="int">
+ 		<!-- parameterType: #{}안의 값과 같은 형태여야. ==> #{no}니까 int -->
+ 		SELECT * FROM foodhouse
+ 		WHERE no=#{no}
+ 	</select>
+ </mapper>
+  
+
+ 
+
