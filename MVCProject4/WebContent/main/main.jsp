@@ -29,7 +29,7 @@
   </div>
 </nav>
   
-<div class="container">
+<div class="container">	
   <jsp:include page="${main_jsp }"></jsp:include>
   <!-- 각 Model에서 request에다가 main_jsp 데이터를 싣어 줬음 ==> ${main_jsp}를 사용할 수 있다.
   		각 Model에서 보낸 main_jsp 값은 "../member/자기파일.jsp" 이다.

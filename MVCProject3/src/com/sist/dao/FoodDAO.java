@@ -12,6 +12,7 @@ import java.io.*;
 public class FoodDAO {
 	private static SqlSessionFactory ssf;
 	// 이미 XML Parser 만들어져 있음 ==> 아까처럼 DocumentBuilderFactory 불러와서 만들 필요 없음
+	
 	static
 	{
 		try

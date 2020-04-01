@@ -4,7 +4,7 @@
 <beans>
 	<!-- bean: Spring에서는 우리가 만든 클래스를 'bean'이라고 함  -->
 	<bean id="category" class="com.sist.model.CategoryModel"/> <!-- id는 중복되면 안 됨 -->
-	<bean id="middle" class="com.sist.model.MiddleModel"/> 
+	<bean id="middle" class="com.sist.model.MiddleModel"/> <!-- class 이름을 알아야 메모리 할당 가능 -->
 	<bean id="detail" class="com.sist.model.DetailModel"/>
 	<bean id="news" class="com.sist.news.NewsModel"/>
 	<!-- bean 낱개로 등록하자니 너무 많아서 귀찮네 ==> package 단위로 처리할 수도 있음 --> 
