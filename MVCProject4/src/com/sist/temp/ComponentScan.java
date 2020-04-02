@@ -20,14 +20,15 @@ public class ComponentScan {
 		{
 			String path="C:\\webDev\\webStudy\\MVCProject4\\src";
 			path=path+"\\"+pack.replace(".", "\\"); 
-			System.out.println(path);
+			System.out.println("path="+path);
 			
 			File dir = new File(path);
 			File[] files = dir.listFiles();
 			for(File f:files)
 			{
 				// System.out.println(f.getName()); // 파일이름 확인 
-				String ext=f.getName().substring(f.getName().lastIndexOf(".")+1);  // ext: extension. 확장자. 
+				String ext=f.getName().substring(f.getName().lastIndexOf(".")+1);  // 파일명에서 글자 잘라서 확장자를 변수 ext에 저장
+				// f.getName(): 파일명 가져옴 ,  ext: extension. 확장자. 
 				// System.out.println("ext="+ext); // 확장자 확인 - Java군 
 				if(!ext.equals("java")) 
 					continue;  // 파일의 확장자가 Java가 아니면 (Java 파일이 아니면) 등록하지 않는다.  
@@ -43,7 +44,8 @@ public class ComponentScan {
 				
 				// list.add(p);
 				// 질문) list.add(p) 해야 하는거 아니에요?
-				// 선생님 답변) 아니야 여기서는 그냥 이렇게 읽어온다는것만 보려고 코딩한거야. 실제로 어디다가 써먹으려고 코딩한거 아냐.
+				// 선생님 답변) 응 원래는 그렇게 해야하긴 하는데 이번에는 그냥 이렇게 읽어온다는것만 보려고 코딩한거야. 실제로 어디다가 써먹으려고 코딩한거 아냐.
+				// MVCProject5에서는 써먹으려고 list.add(p) 했어 
 				
 			}
 		}catch (Exception ex) {}

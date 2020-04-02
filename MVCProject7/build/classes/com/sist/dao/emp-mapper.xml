@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper 
+ PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+ "http://mybatis.org/dtd/mybatis-3-mapper.dtd"> 
+ <!-- ★[MyBatis 조인]★
+ 	SELECT empno,ename,hiredate,dname,loc
+ 	FROM emp,dept
+ 	WHERE emp.deptno=dept.deptno
+ 	
+ 	while(rs.next())
+ 	{
+ 		EmpVO vo=new EmpVO();
+ 		vo.setEmpno(rs.getInt("empno"));
+ 		vo.setEname(rs.getString("name"));
+ 		vo.setHiredate(rs.getDate("hiredate"));
+ 		
+ 		vo.setDname(rs.getString("dname"));  
+ 		vo.setLoc(rs.getString("loc")); 
+ 		// dname과 loc는 emp에 없어서 위와 같이 쓸 수 없음 ㅠㅠ 
+ 		// ==> vo.getDvo().setDname(rs.getString("dname")) 이런식으로 쓰면 된다. 
+ 	}
+  -->
+ 
+ <mapper namespace="com.sist.dao.emp-mapper"> 
+ 	<!-- 결과값 매핑 : JOIN 걸거나 또는 테이블 컬럼명과 변수명이 다를 때 사용 -->
+ 	<resultMap type="EmpVO" id="empMap">
+ 		<result column="empno" property="empno"/>
+ 		<!-- vo.setEmpno(rs.getInt("empno"));  와 동일한 코딩 -->
+ 		<!-- result column="empno" property="sabun"  이렇게 컬럼명(empno)과 변수명(sabun)을 다르게 사용할 수도 있다. -->
+ 		<!-- 이런 경우 vo.setSabun(rs.getInt("empno")); 임. -->
+ 		<result column="ename" property="ename"/>
+ 		<result column="job" property="job"/>
+ 		<result column="mgr" property="mgr"/>
+ 		<result column="hiredate" property="hiredate"/>
+ 		<result column="sal" property="sal"/>
+ 		<result column="com" property="com"/>
+ 		<result column="deptno" property="deptno"/>
+ 		<result column="dname" property="dvo.dname"/>  <!-- ★★★ -->
+ 		<result column="loc" property="dvo.loc"/> <!-- ★★★ -->
+ 	</resultMap>
+ 	<!-- 질문) resultMap 쓴 건, 조인때문에 쓴거죠? 
+			    만약 조인 안 해도 된다면 저 resultMap 과 result 태그로 일일이 XML에 설정 안 해줘도 VO에서 값 가지고 오지 않나요? 
+                   답변) 맞음. 조인 안 하고 컬럼명과 변수명을 같게 쓴다면, resultMap으로 결과값매핑 안 해도 알아서 값 가져온다.     	
+ 	 -->
+ 	<select id="empAllData" resultMap="empMap"> <!-- ★★★ -->
+ 		SELECT empno,ename,job,hiredate,sal,dname,loc
+ 		FROM emp,dept
+ 		WHERE emp.deptno=dept.deptno
+ 	</select>
+ </mapper>
+ 
+ 
+ 
+ 
+ 
+ 
+ 
+ 

@@ -7,6 +7,10 @@
 <body>
 <pre>
  ★★★ [이 프로젝트의 동작순서] ★★★
+ 0. 톰캣 구동
+ 1. 톰캣이 web.xml을 읽음
+ 2. web.xml 정보를 바탕으로 Servlet 실행 
+ 
  1. XML Parser
   - XML Parser가 applicationContext.xml에서 패키지를 읽음
  2. ComponentScan이 패키지를 파일명으로 변경함

@@ -14,8 +14,8 @@
  - JSPBasicProject9: Cookie를 이용한 최근 본 페이지 UI    
  - JSPBasicProject10: 게시판 pagination   
  - JSPBasicProject11: Session, 로그인, 회원가입   
-   회원가입 - 아이디 중복체크, 우편번호 입력, 자식 window에서 부모 window로 값 전달   
-   로그인 - Session으로 로그인 시 받은 정보 유지 
+   1) 회원가입 - 아이디 중복체크, 우편번호 입력, 자식 window에서 부모 window로 값 전달   
+   2) 로그인 - Session으로 로그인 시 받은 정보 유지 
  - JSPMiddleProject1: EL(Expression Language)   
  - JSPMiddleProject2: JSTL     
  - JSPMiddleProject3: JSTL, Model         
@@ -27,9 +27,13 @@
    Controller: map으로 각 Model-JSP 매칭   
  - MVCProject3: MVC, Spring 구조 만들기, 맛집 카테고리/중간리스트/상세페이지 출력, 네이버 뉴스 XML 파싱    
    Controller: web.xml로 각 Model-JSP 매칭   
- - MVCProject4: MVC, Spring 구조 만들기, include     
- - MVCProject5   
- - SpringTestProject    
+ - MVCProject4: MVC, Spring 구조 만들기, include 
+   Spring 구조 만들기:     
+ - MVCProject5★: MVC 게시판, Spring 구조 만들기, Controller.jar    
+   Spring 구조 만들기: controller 패키지에 ComponentScan, Controller, DispatcherServlet, HandlerMapping, Model, RequestMapping, XMLParser 구현 ==> Controller.jar 파일로 export
+ - SpringTestProject     
+ - MVCProject6:    
+ - MVCProject7: MyBatis JOIN    
    
 # WebProgrammingCourse_JSP
 Programming course supported by the South Korea government (Dec 02, 2019 - June 01, 2020)

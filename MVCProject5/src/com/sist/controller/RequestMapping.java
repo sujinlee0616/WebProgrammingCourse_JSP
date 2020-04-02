@@ -12,5 +12,5 @@ import java.lang.annotation.Target;
 @Retention(RUNTIME)
 @Target({ TYPE, METHOD }) // 클래스(TYPE)과 메소드를 구분하는 애   ==> 이 Annotation은 클래스 또는 메소드 위에서만 사용한다.
 public @interface RequestMapping {
-
+	public String value(); // 결과 => aaa
 }
