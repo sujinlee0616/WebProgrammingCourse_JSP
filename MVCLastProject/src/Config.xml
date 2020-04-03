@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Config.xml: 공통 파일. Connection 관련. -->
+<!DOCTYPE configuration
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+ <configuration>
+ <!-- config 태그에 마우스오버하면 아래와 같이 태그 뭐 써야할지 알려줌. 이 순서 지켜서 써야함. 
+ 	Content Model : (properties?, settings?, typeAliases?, typeHandlers?, 
+ 	objectFactory?, objectWrapperFactory?, reflectorFactory?, plugins?, 
+ 	environments?, databaseIdProvider?, mappers?)
+  -->
+  
+  <typeAliases> <!-- VO 등록 -->
+  	<typeAlias type="com.sist.dao.BoardVO" alias="BoardVO"/>
+  </typeAliases>
+  <environments default="development">
+  	<environment id="development">
+  		<transactionManager type="JDBC"></transactionManager> <!-- 커밋/롤백 어떻게 할거냐 -->
+  		<!-- 트랜잭션(Transaction 이하 트랜잭션)이란, 데이터베이스의 상태를 변화시키기 해서 수행하는 작업의 단위를 뜻한다. -->
+  		<dataSource type="POOLED"> <!-- 오라클 정보 넘긴다 -->
+  		<!-- PooledDataSource p = new PooledDataSource();
+  			 p.setDriver(value값); -->
+  		<!-- dataSource type에는 POOLED(DBCP)와 UNPOOLED가 있다. -->
+			<property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+			<property name="url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
+			<property name="username" value="hr"/>
+			<property name="password" value="happy"/>
+			<!--  getConnection(p.getUrl(),p.getUsername(),p.getPassword()),
+				  disConnection()  -->
+  		</dataSource>
+  	</environment>
+  </environments>
+  <!-- 
+  	<!ENTITY mapper 'board-mapper.xml'>
+  	=> &nbsp;
+  	=> &mapper; => include
+   -->
+  <mappers>
+  	<mapper resource="com/sist/dao/board-mapper.xml"></mapper>
+  </mappers> 
+  
+ </configuration>
+ 
+ 
+ 
