@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mapper.recipe-mapper">
+	<select id="recipeListData" resultType="RecipeVO" parameterType="java.util.Map">  
+	<!-- 왜 parameterType="java.util.Map"?? start,end로 페이지 나눠야 하니까, start,end를 Map에다 넣어오려고 -->
+		SELECT no,title,chef,poster,num
+		FROM (SELECT no,title,chef,poster,rownum as num
+		FROM (SELECT no,title,chef,poster
+		FROM recipe ORDER BY no ASC))
+		WHERE num BETWEEN #{start} AND #{end} 
+	</select>
+	<select id="recipeTotalPage" resultType="int">
+		SELECT CEIL(COUNT(*)/20.0) FROM recipe; 
+		<!-- 한 페이지에 레시피 20개씩 보여줄 예정 -->
+	</select>
+</mapper>

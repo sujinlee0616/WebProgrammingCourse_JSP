@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mapper.main-mapper">
+	<select id="mainImageData" resultType="CategoryVO">
+	<!-- 원래 resultType="com.sist.vo.CategoryVO" 이렇게 코딩해야 하는데 번거로우니까 Config.xml에서 Alias 지정해서 사용  -->
+		SELECT title,subject,poster
+		FROM category
+	</select>
+	<select id="recipeCount" resultType="int">
+		SELECT COUNT(*) 
+		FROM recipe
+	</select>
+	<select id="mainRecipeData" resultType="RecipeVO">
+		SELECT poster,title,chef,rownum
+		FROM recipe
+		WHERE rownum&lt;=5
+		<!-- XML에 '<'쓸 수 X. Enitity로 쓰거나 CDATA 사용해서 써야. -->
+	</select>
+	<!-- 1~119 -->
+	<select id="mainFoodDetailData" resultType="FoodVO" parameterType="int">
+		SELECT * FROM foodhouse
+		WHERE no=#{no}
+	</select>
+</mapper>
