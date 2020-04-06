@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -10,42 +11,57 @@
 <!-- ================================== 카테고리 (Image Slide 하단, 3개짜리) ================================== -->
 <div class="wrapper row2">
   <div id="services" class="clear"> 
-    <div class="group">
-      <div class="one_third first">
-        <article class="service"><i class="icon red circle fa fa-bell-o"></i>
-          <h2 class="heading" style="font-family: 맑은 고딕">한류관광</h2>
-          <p class="btmspace-10">서울의 10대 한류명소<br>
-                  한류스타 출연 공연 일정<br>
-          K-pop & K-drama 추천코스
-          </p>
-          <p><a href="#">Read More &raquo;</a></p>
-        </article>
-      </div>
-      <div class="one_third">
-        <article class="service"><i class="icon orange circle fa fa-bicycle"></i>
-          <h2 class="heading" style="font-family: 맑은 고딕">추천코스</h2>
-          <p class="btmspace-10">서울 한 바퀴<br>
-          2019 창경궁 야간 상시관람<br>
-                   서울의 무인서비스
-          </p>
-          <p><a href="#">Read More &raquo;</a></p>
-        </article>
-      </div>
-      <div class="one_third">
-        <article class="service"><i class="icon green circle fa fa-mortar-board"></i>
-          <h2 class="heading" style="font-family: 맑은 고딕">공연예약</h2>
-          <p class="btmspace-10">
-                   아라리오뮤지엄 인 스페이스 서울<br>
-                   모던 앤 클래식 3<br>
-                   난타(NANTA) - 명동공연
-          </p>
-          <p><a href="#">Read More &raquo;</a></p>
-        </article>
-      </div>
-    </div>
+	<div class="row">
+		<c:forEach var="vo" items="${list }">
+			<div class="col-md-3">
+			    <div class="thumbnail">
+			      <a href="/w3images/lights.jpg">
+			        <img src="${vo.poster }" alt="Lights" style="width:100%">
+			        <div class="caption">
+			          <p>${vo.title }</p>
+			          <p><syb style="color:gray;">${vo.chef }</p>
+			        </div>
+			      </a>
+			    </div>
+		  	</div>
+		</c:forEach>
+	</div>
     <div class="clear"></div>
+    <!-- ========== Start of Pagination ========== -->
+    <div class="text-center">
+    	<ul class="pagination">
+    	  <c:if test="${startPage>1}">
+    	  	<li><a href="../recipe/recipe.do?page=${startPage-1 }">&lt;</a></li>
+    	  </c:if>
+    	  <c:set var="type" value=""/>
+    	  <c:forEach var="i" begin="${startPage }" end="${endPage }">
+    	  	<c:if test="${curpage==i }">
+    	  		<c:set var="type" value="class=active"/>
+    	  	</c:if>
+    	  	<c:if test="${curpage!=i }">
+    	  		<c:set var="type" value=""/>
+    	  	</c:if>
+    	  	<li ${type }><a href="../recipe/recipe.do?page=${i }">${i }</a></li>
+    	  </c:forEach>
+    	  <c:if test="${endPage<allPage }">
+    	  	<li><a href="../recipe/recipe.do?page=${endPage+1 }">&gt;</a></li>
+    	  </c:if>
+		</ul>
+    </div>
+    <!-- ========== End of Pagination ========== -->
   </div>
 </div>
+<!-- ================================== 최근 본 ================================== -->
+<div class="wrapper row6">
+  <section id="cta" class="clear"> 
+    <div class="three_quarter first">
+      <h2 class="heading" style="font-family: 맑은 고딕">최근 본 레시피</h2>
+      <p>총 ${count }개의 맛있는 레시피가 있습니다.</p>
+    </div>
+    <div class="one_quarter"><a class="btn" href="#">Get it now <span class="fa fa-arrow-right"></span></a></div>
+  </section>
+</div>
+
 <!-- ================================== 최하단 '오늘의 음식점' ================================== -->
 <div class="wrapper row2">
   <div class="latest"> 

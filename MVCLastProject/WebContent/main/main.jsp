@@ -7,8 +7,9 @@
 	<title>SIST Recipe & Food</title>
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-	<link href="layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
+	<!-- CSS 경로 주의 - ../main/~~ 으로 줘야 recipe.do에서도 CSS 안 깨짐 -->
+	<link href="../main/layout/styles/layout.css" rel="stylesheet" type="text/css" media="all">
 	<style type="text/css">
 	body{
 	  font-family: 맑은 고딕;
@@ -38,8 +39,8 @@
             <li><a href="../recipe/recipe.do">레시피</a></li>
             <li><a class="drop" href="#">셰프</a>
               <ul>
+                <li><a href="../recipe/chef.do">셰프 목록</a></li>
                 <li><a href="../recipe/recipe_find.do">레시피 찾기</a></li>
-                <li><a href="../recipe/chef.do">셰프 찾기</a></li>
               </ul>
             </li>
           </ul>
@@ -137,9 +138,9 @@
 <a id="backtotop" href="#top"><i class="fa fa-chevron-up"></i></a> 
 
 <!-- JAVASCRIPTS -->
-<script src="layout/scripts/jquery.min.js"></script>
-<script src="layout/scripts/jquery.backtotop.js"></script>
-<script src="layout/scripts/jquery.mobilemenu.js"></script>
-<script src="layout/scripts/jquery.flexslider-min.js"></script>
+<script src="../main/layout/scripts/jquery.min.js"></script>
+<script src="../main/layout/scripts/jquery.backtotop.js"></script>
+<script src="../main/layout/scripts/jquery.mobilemenu.js"></script>
+<script src="../main/layout/scripts/jquery.flexslider-min.js"></script>
 </body>
 </html>

@@ -56,4 +56,41 @@ public class RecipeDAO {
 		return total;
 	}
 	
+	public static List<ChefVO> chefListData(Map map)
+	{
+		SqlSession session=null;
+		List<ChefVO> list = new ArrayList<ChefVO>();
+		
+		try {
+			session=ssf.openSession(); 
+			list=session.selectList("chefListData",map); 
+		} catch (Exception ex) {
+			System.out.println("chefListData(): "+ex.getMessage());
+		}
+		finally {
+			if(session!=null)
+				session.close();
+		}
+		return list;
+	}
+	
+	public static int chefTotalPage()
+	{
+		SqlSession session=null;
+		int total=0; // 초기화 
+		
+		try {
+			session=ssf.openSession(); 
+			total=session.selectOne("chefTotalPage");  // selectOne("recipe-mapper.xml의 id")
+		} catch (Exception ex) {
+			System.out.println("chefTotalPage(): "+ex.getMessage());
+		}
+		finally {
+			if(session!=null)
+				session.close();
+		}
+		return total;
+	}
+	
+	
 }
