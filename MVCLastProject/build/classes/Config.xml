@@ -10,6 +10,8 @@
   	<typeAlias type="com.sist.vo.RecipeDetailVO" alias="RecipeDetailVO"/>
   	<typeAlias type="com.sist.vo.CategoryVO" alias="CategoryVO"/>
   	<typeAlias type="com.sist.vo.FoodVO" alias="FoodVO"/>
+  	<typeAlias type="com.sist.vo.MemberVO" alias="MemberVO"/>
+  	<typeAlias type="com.sist.vo.ZipcodeVO" alias="ZipcodeVO"/>
   </typeAliases>
   <environments default="development">
   	<environment id="development">
@@ -26,6 +28,7 @@
   <mappers> <!-- XML 파일 등록 -->
   	<mapper resource="com/sist/mapper/recipe-mapper.xml"></mapper>
   	<mapper resource="com/sist/mapper/main-mapper.xml"></mapper>
+  	<mapper resource="com/sist/mapper/member-mapper.xml"></mapper>
   </mappers> 
   
  </configuration>

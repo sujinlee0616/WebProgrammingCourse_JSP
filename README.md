@@ -34,7 +34,10 @@
  - SpringTestProject     
  - MVCProject6:    
  - MVCProject7: MyBatis JOIN    
+ - MVCLastProject: jQuery 이론 및 실습, AJAX, 회원가입 우편번호 검색, JSON 파싱    
+ - RecipeProject:    
    
+
 # WebProgrammingCourse_JSP
 Programming course supported by the South Korea government (Dec 02, 2019 - June 01, 2020)
     

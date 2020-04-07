@@ -21,14 +21,14 @@
 <div class="wrapper row1">
   <header id="header" class="clear">
     <div id="logo" class="fl_left">
-      <h1><a href="index.html">SIST Recipe & Food</a></h1>
+      <h1><a href="../main/main.do">SIST Recipe & Food</a></h1>
     </div>
     <nav id="mainav" class="fl_right">
       <ul class="clear">
         <li class="active"><a href="../main/main.do">Home</a></li>
         <li><a class="drop" href="#">회원</a>
           <ul>
-            <li><a href="pages/gallery.html">회원가입</a></li>
+            <li><a href="../member/join.do">회원가입</a></li>
             <li><a href="pages/full-width.html">아이디찾기</a></li>
             <li><a href="pages/sidebar-left.html">비밀번호찾기</a></li>
             <li><a href="pages/sidebar-right.html">회원탈퇴</a></li>

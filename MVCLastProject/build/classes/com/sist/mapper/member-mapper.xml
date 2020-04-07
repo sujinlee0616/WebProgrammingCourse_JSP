@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mapper.member-mapper">
+	<select id="postfindData" resultType="ZipcodeVO" parameterType="String">
+		SELECT zipcode,sido,gugun,dong,NVL(bunji,' ') as bunji  <!-- 함수가 들어오면 alias 써야 -->
+		FROM zipcode
+		WHERE dong LIKE '%'||#{dong}||'%'  <!-- LIKE 문장 오라클과 조금 다르니 주의! -->
+	</select>
+
+</mapper>
