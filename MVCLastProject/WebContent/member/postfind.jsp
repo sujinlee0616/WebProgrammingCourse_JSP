@@ -24,9 +24,9 @@
 					 - 자기자신(post.do)로 보내면, 기존 창은 죽고 새로운 창(post.jsp 창)이 만들어지기 때문. 
 					 - 그런데, 우리는 창을 유지해야하기 함. 
 				*/
-				data:{"dong":dong},
+				data:{"dong":dong}, // data:{"key":value}
 				success:function(result){
-					var div=$('#result').html(result);
+					var div=$('#result').html(result);  //#result div에 html값 변경
 					console.log(div);
 				},
 				error:function(e)

@@ -23,9 +23,13 @@
 					<table class="table">
 						<tr>
 							<td width="30%" class="text-center" rowspan="2">
-								<img src="${vo.poster }" class="img-circle" style="width:80px; height:80px;">
+								<a href="../recipe/chef_detail.do?name=${vo.chef }"><img src="${vo.poster }" class="img-circle" style="width:80px; height:80px;"></a>
 							</td>
-							<td colspan="4"><h3 style="color: orange;">${vo.chef }</font></h3></td>
+							<td colspan="4">
+								<h3>
+									<a style="color:orange;" href="../recipe/chef_detail.do?name=${vo.chef }">${vo.chef }</a>
+								</h3>
+							</td>
 						</tr>
 						<tr>
 							<td class="text-center">
@@ -75,3 +79,13 @@
 </div>
 </body>
 </html>
+
+
+
+<!-- 
+	[순서]
+	<a> ==> link ==> Model (@RequestMapping) ==> SQL ==> DAO ==> Model ==> JSP 
+
+ -->
+ 
+ 

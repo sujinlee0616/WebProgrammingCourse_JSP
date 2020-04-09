@@ -1,10 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sist.mapper.member-mapper">
+	
+	<!-- 우편번호 검색 -->
 	<select id="postfindData" resultType="ZipcodeVO" parameterType="String">
 		SELECT zipcode,sido,gugun,dong,NVL(bunji,' ') as bunji  <!-- 함수가 들어오면 alias 써야 -->
 		FROM zipcode
 		WHERE dong LIKE '%'||#{dong}||'%'  <!-- LIKE 문장 오라클과 조금 다르니 주의! -->
 	</select>
-
+	
+	<!-- ID 중복확인 -->
+	<select id="idcheckData" resultType="int" parameterType="String">
+		SELECT COUNT(*) FROM member
+		WHERE id=#{id}
+	</select>
+	
+	<!-- 들어가는 "순서" 맞춰줘야..
+	[member 테이블]
+	ID       NOT NULL VARCHAR2(20)  
+	PWD      NOT NULL VARCHAR2(10)  
+	NAME     NOT NULL VARCHAR2(34)  
+	EMAIL             VARCHAR2(100) 
+	SEX               VARCHAR2(10)  
+	BIRTHDAY NOT NULL VARCHAR2(20)  
+	POST     NOT NULL VARCHAR2(7)   
+	ADDR1    NOT NULL VARCHAR2(200) 
+	ADDR2             VARCHAR2(200) 
+	TEL               VARCHAR2(20)  
+	CONTENT  NOT NULL CLOB          
+	REGDATE           DATE          
+	ADMIN             CHAR(1) 
+	 -->
+	<insert id="memberInsert" parameterType="MemberVO">
+		INSERT INTO member VALUES(
+			#{id},
+			#{pwd},
+			#{name},
+			#{email},
+			#{sex},
+			#{birthday},
+			#{post},
+			#{addr1},
+			#{addr2},
+			#{tel},
+			#{content},
+			SYSDATE,
+			'n'
+		)
+	</insert>
+	
+	<!--로그인 - ID/PWD 맞는지 확인 -->
+	<select id="idCount" resultType="int" parameterType="string">
+		SELECT COUNT(*) FROM member
+		WHERE id=#{id}
+	</select>
+	<select id="getPwd" resultType="MemberVO" parameterType="string">
+		SELECT pwd,name,admin FROM member
+		WHERE id=#{id} 
+	</select>
+	
+	
 </mapper>
+
+
+
+
+
+

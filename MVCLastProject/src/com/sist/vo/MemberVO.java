@@ -37,6 +37,8 @@ public class MemberVO {
 	private Date regdate;
 	private String admin;
 	
+	private String msg;
+	
 }
 
 

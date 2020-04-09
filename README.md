@@ -33,8 +33,10 @@
    Spring 구조 만들기: controller 패키지에 ComponentScan, Controller, DispatcherServlet, HandlerMapping, Model, RequestMapping, XMLParser 구현 ==> Controller.jar 파일로 export
  - SpringTestProject     
  - MVCProject6:    
- - MVCProject7: MyBatis JOIN    
+ - MVCProject7: MyBatis JOIN - EmpVO,emp-mapper 참고    
  - MVCLastProject: jQuery 이론 및 실습, AJAX, 회원가입 우편번호 검색, JSON 파싱    
+   1)
+   2) PL/SQL : 커뮤니티    
  - RecipeProject:    
    
 

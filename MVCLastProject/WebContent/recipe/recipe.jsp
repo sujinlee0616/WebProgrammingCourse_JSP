@@ -15,7 +15,8 @@
 		<c:forEach var="vo" items="${list }">
 			<div class="col-md-3">
 			    <div class="thumbnail">
-			      <a href="/w3images/lights.jpg">
+			      <a href="../recipe/recipe_detail.do?no=${vo.no }">  <!-- URI는 .do까지 ==> @RequestMapping은 ? 이하는 인식하지X. -->
+			      <!-- ? 이하 파라미터값들은 request에 담김.  -->
 			        <img src="${vo.poster }" alt="Lights" style="width:100%">
 			        <div class="caption">
 			          <p>${vo.title }</p>
