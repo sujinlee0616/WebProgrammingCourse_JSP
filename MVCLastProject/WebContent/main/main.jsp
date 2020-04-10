@@ -43,6 +43,7 @@ $(function(){
 			url:'../member/login.do',
 			data:{"id":id,"pwd":pwd},
 			success:function(res){
+				console.log(res);
 				if(res.trim()=='NOID')
 				{
 					alert("아이디가 존재하지 않습니다!");
@@ -130,7 +131,15 @@ $(function(){
          	 <c:if test="${sessionScope.id!=null }">
             	<li><a href="#">자유게시판</a></li>
             </c:if>
-            <li><a href="#">묻고답하기</a></li>
+            <li><a href="../reply/list.do">묻고답하기</a></li>
+            <%--
+            	[흐름] 
+            	- reply/list.do ==> DispatcherServlet 호출 ==> Model 및 메소드 찾아줌 (@RequestMapping("list.do") 갖고 있는 메소드 찾음)
+                  Model에서는 DAO를 연결해서 해당 JSP에 결과값을 전송해줌
+                [각 역할]
+                - DispatcherServlet(Controller): 요청을 제어, 응답 제어
+                - Model, DAO : 요청을 처리 
+  		    --%>
             <li><a href="#">자료실</a></li>
           </ul>
         </li>

@@ -241,7 +241,12 @@ public class RecipeModel {
 		String no=request.getParameter("no");
 		
 		// DAO 연결 (DB연동)
-		List<RecipeVO> list=RecipeDAO.recipeFindData(data[Integer.parseInt(no)-1]); // 파라미터로 받는 no가, recipe_find.jsp에서 확인하면, foreach 구문에서, var가 1부터 시작했기 때문.
+		List<RecipeVO> list=RecipeDAO.recipeFindData(data[Integer.parseInt(no)-1].replace("/","|"));
+			// Q1. 왜 data[Integer.parseInt(no)-1]? 
+			// A1. 파라미터로 받는 no가, recipe_find.jsp에서 확인하면, foreach 구문에서, var가 1부터 시작했기 때문.
+			// Q2. 왜 replace("/","|") ?
+			// A2. "면/우동" 이런 애들 면 or 우동 으로 SQL에서 찾을 수 있게 하기 위해서
+		
 		// title 글자 수 자름
 		for(RecipeVO vo:list)
 		{

@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.sist.mapper.reply-mapper">
+	<select id="replyListData" resultType="BoardVO" parameterType="hashmap"> <!-- parameterType을 "java.util.Map"으로 줘도 되고 "hashmap"으로 줘도 됨 -->
+		SELECT no,subject,name,regdate,hit,group_tab,num
+		FROM (SELECT no,subject,name,regdate,hit,group_tab,rownum as num
+		FROM (SELECT no,subject,name,regdate,hit,group_tab
+		FROM replyBoard ORDER BY group_id DESC,group_step ASC)) 
+		WHERE num BETWEEN #{start} AND #{end}
+	</select>
+	<!-- resultType: 이 SQL 구문을 실행한 결과를 BoardVO에다가 받아라. -->
+	
+	<select id="replyFindData" resultType="BoardVO" parameterType="hashmap">
+		SELECT no,subject,name,regdate,hit
+		FROM replyBoard 
+		WHERE ${fs} '%'||${ss}||'%' 
+	</select>
+	<!-- Q. 왜 여기선 ${} ?? 
+	     A. #{일반 데이터}    ${컬럼/뷰/테이블명} 
+		 - [참고] MyBatis에서 #{}과 ${}의 차이: https://logical-code.tistory.com/25
+	-->
+	<!-- fs, ss 변수
+	     - 이름/제목/내용 선택하는 셀렉트창의 데이터를 fs(필드 스트링)로, 검색어를 입력하는 인풋창에 들어오는 데이터를 ss로 뒀음 -->
+	<!-- 검색창의 이름이 VO에 존재하지 않으니까 Map에다가 싣어서 와야 -->
+	
+	<select id="replyTotalPage" resultType="int">
+		SELECT CEIL(COUNT(*)/15.0) FROM replyBoard
+	</select>
+	
+	<select id="replyDetailData" resultType="BoardVO" parameterType="int">
+		SELECT *
+		FROM replyBoard
+		WHERE no=#{no}
+	</select>
+	
+	<!-- [replyBoard table] 
+	NO         NOT NULL NUMBER         
+	NAME       NOT NULL VARCHAR2(34)   
+	SUBJECT    NOT NULL VARCHAR2(2000) 
+	CONTENT    NOT NULL CLOB           
+	PWD        NOT NULL VARCHAR2(10)   
+	REGDATE             DATE           
+	HIT                 NUMBER         
+	GROUP_ID            NUMBER         
+	GROUP_STEP          NUMBER         
+	GROUP_TAB           NUMBER         
+	ROOT                NUMBER         
+	DEPTH               NUMBER  
+	 -->
+	 
+	<update id="hitIncrement" parameterType="int">
+		UPDATE replyBoard
+		SET hit=hit+1
+		WHERE no=#{no}
+	</update>
+	 
+	 
+	<insert id="replyInsertData" parameterType="BoardVO">
+	 	<selectKey keyProperty="no" resultType="int" order="BEFORE"> <!-- order="BEFORE": 먼저 실행해라.. -->
+ 			SELECT NVL(MAX(no)+1,1) as no FROM replyBoard 
+ 		</selectKey>		
+ 		<!-- selectKey는 한 번 밖에 쓸 수 없다	 -->	
+		INSERT INTO replyBoard(no,name,subject,content,pwd,group_id)
+		VALUES(
+			#{no},
+			#{name},
+			#{subject},
+			#{content},
+			#{pwd},
+			(SELECT NVL(MAX(group_id)+1,1) FROM replyBoard)
+		)
+	</insert>
+	
+	<select id="getInfoForUpdate" resultType="BoardVO" parameterType="int">
+		SELECT no,regdate,name,hit,subject,content
+		FROM replyBoard
+		WHERE no=#{no}
+	
+	</select>
+	
+	<select id="replyCheckRealPwd" resultType="String" parameterType="int" >
+		SELECT pwd FROM replyBoard
+		WHERE no=#{no}
+	</select>
+	
+	<update id="replyUpdateData" parameterType="BoardVO">
+		UPDATE replyBoard
+		SET
+			name=#{name},
+			subject=#{subject},
+			content=#{content}
+		WHERE no=#{no}
+	</update>
+	
+	
+			
+</mapper>
+
+
+
+
+
+
+

@@ -85,7 +85,8 @@
 		FROM recipe
 		WHERE rownum&lt;=21
 		<if test="fd!='전체'"> 
-			AND title LIKE '%'||#{fd}||'%' 
+			<!-- AND title LIKE '%'||#{fd}||'%'  -->
+			AND REGEXP_LIKE(title,#{fd}) <!--  면|우동 이면 면과 우동 둘 다 찾게 하기 위해서  (RecipeModel에서 면|우동 이런식으로 주게 해놨음)-->
 		</if>
 	</select>
 	<!-- fd가 '전체'라면 SELECT만 수행,
