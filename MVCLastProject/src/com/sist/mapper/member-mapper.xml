@@ -55,8 +55,8 @@
 		WHERE id=#{id}
 	</select>
 	<select id="getPwd" resultType="MemberVO" parameterType="string">
-		SELECT upwd,uname,utype FROM member
-		WHERE id=#{id} 
+		SELECT pwd,name,admin FROM member
+		WHERE id=#{id}   
 	</select>
 	
 	

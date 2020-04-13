@@ -21,13 +21,13 @@ h2 {
 <script type="text/javascript">
 $(function(){
 	$('#pwd2').keyup(function(){ // 유저가 뭔가 입력후 바로 체크 ==> keyup으로 체크 
-		var k=$(this).val();
-		console.log(k);
+		var user_input_pwd=$(this).val();
+		console.log(user_input_pwd);
 		var no=$('#no').val();	
 		$.ajax({
-			type:'POST',
-			url:'../reply/password_check.do', 
-			data:{"pwd":k,"no":no}, // 요청과 함께 서버에 보내는 string 또는 json
+			type:'POST', // 
+			url:'../reply/password_check.do', // 클라이언트가 요청을 보낼 서버의 URL 주소
+			data:{"pwd":user_input_pwd,"no":no}, // HTTP 요청과 함께 서버로 보낼 데이터
 			success:function(res) // success:  요청이 성공일때 실행되는 callback 함수
 			{ 
 				var no=res.trim();

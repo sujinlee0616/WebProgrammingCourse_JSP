@@ -197,6 +197,106 @@ public class ReplyBoardDAO {
 		return vo;
 	}
 	
+	// [답글달기] 
+	public static void replyReplyData(int pno,BoardVO vo)
+	{
+		SqlSession session=null;
+		
+		try
+		{
+			session=ssf.openSession();
+			
+			// 1. 엄마 글의 정보를 먼저 읽어 들어온다
+			BoardVO pvo=session.selectOne("replyParentInfoData",pno); // 상위 글의 데이터 모음(pvo) 가져옴  
+			System.out.println("1번 수행 완료");
+			
+			// 2. 같은 그룹 안에 있는 글들의 group_step 1씩 증가시킨다
+			session.update("replyGroupStepIncrement",pvo);
+			System.out.println("2번 수행 완료");
+			
+			// 3. 답글 insert함
+			vo.setGroup_id(pvo.getGroup_id());
+			vo.setGroup_step(pvo.getGroup_step()+1);
+			vo.setGroup_tab(pvo.getGroup_tab()+1);
+			vo.setRoot(pno);
+			session.insert("replyReplyData",vo);
+			System.out.println("3번 수행 완료");
+			
+			// 4.엄마글의 depth(자기 밑에 몇 개를 달고 있는지) 1개 증가시킴
+			session.update("replyDetphIncrement",pno);
+			System.out.println("4번 수행 완료");
+			
+			// 커밋 날림 - 1~4 다 정상수행하면 커밋하고 
+			session.commit();
+			
+		}catch(Exception ex)
+		{
+			System.out.println("replyReplyData: "+ex.getMessage());
+			session.rollback(); // 1~4 중 하나라도 정상수행 못한다면 롤백하라. 
+		}
+		finally
+		{
+			if(session!=null)
+				session.close(); 
+		}
+	}
+
+	
+	// [삭제하기]
+	public static boolean replyDeleteData(int no, String pwd)  // return형이 이게 맞나? return형을 뭘로 해줘야하나.... 
+	{
+		boolean bCheck=false;
+		SqlSession session=null;
+		
+		try
+		{
+			session=ssf.openSession();
+			
+			// 1.비밀번호 맞는지 체크 ==> 예전에 만들어놨던 replyCheckRealPwd 재활용
+			String db_pwd=session.selectOne("replyCheckRealPwd",no);
+			if(db_pwd.equals(pwd)) // 만약 비번이 맞다면 bCheck를 true로 바꾸고 
+			{
+				bCheck=true; 
+				// 2. 삭제할 글의 데이터를 가지고 온다.
+				BoardVO vo=session.selectOne("replyDeleteInfoData",no);
+				
+				// 3-1. depth가 0인 경우 (자식 글 없는 경우) ==> 삭제
+				if(vo.getDepth()==0) // depth가 0이라면 
+				{
+					session.delete("replyDeleteData",no);
+				}
+				// 3-2. depth가 0이 아닌 경우 (자식 글이 1개 이상 있는 경우) ==> 그냥 삭제하지 말고 '관리자가 삭제한 글이다'라고 바꿔줘야
+				else 
+				{
+					vo.setSubject("관리자가 삭제한 게시물입니다");
+					vo.setContent("관리자가 삭제한 게시물입니다");
+					vo.setNo(no);
+					session.update("replySubjectUpdate",vo);
+				}
+				// 4. depth 감소시킨다.
+				session.update("replyDepthDecrement",vo.getRoot());  // 상위번호의 depth를 감소시켜줘야하니까 no가 아니라 vo.getRoot()
+			}
+			else // 만약 비번이 틀리다면 bCheck를 false로 바꾸고 아무것도 실행하지X
+			{
+				bCheck=false;
+			}
+			
+			// 커밋 날림 - 1~4 다 정상수행하면 커밋하고 
+			session.commit();
+			
+		}catch(Exception ex)
+		{
+			System.out.println("replyDeleteData: "+ex.getMessage());
+			session.rollback(); // 1~4 중 하나라도 정상수행 못한다면 롤백하라. 
+		}
+		finally
+		{
+			if(session!=null)
+				session.close(); 
+		}
+		
+		return bCheck;
+	}
 	
 	
 }

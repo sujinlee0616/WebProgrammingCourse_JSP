@@ -100,7 +100,7 @@ public class ReplyBoardModel {
 		
 		// 클라이언트가 입력한 데이터를 가지고 와야...
 		String name=request.getParameter("name");
-		String subject=request.getParameter("name");
+		String subject=request.getParameter("subject");
 		String content=request.getParameter("content");
 		String pwd=request.getParameter("pwd");
 		
@@ -190,6 +190,86 @@ public class ReplyBoardModel {
 		
 		return "redirect:../reply/detail.do?no="+no;
 	}
+	
+	// [답글달기] 
+	@RequestMapping("reply/reply.do")
+	public String reply_reply(HttpServletRequest request, HttpServletResponse response)
+	{
+		String pno=request.getParameter("no"); // 엄마글의 번호를 파라미터로 받아옴
+		request.setAttribute("pno", pno); // 엄마글의 번호를 request에 싣는다 - reply.jsp에서 form의 action으로 reply_ok.do로 pno를 넘길거라서..
+		
+		request.setAttribute("main_jsp", "../reply/reply.jsp"); // main에 include시킴 
+		return "../main/main.jsp";
+	}
+	
+	// [답글달기] 
+	@RequestMapping("reply/reply_ok.do")
+	public String reply_reply_ok(HttpServletRequest request, HttpServletResponse response)
+	{	
+		try
+		{
+			request.setCharacterEncoding("UTF-8");   // 이 코드가 제일 최상위에 있어야 한글 안 깨짐.
+		}catch(Exception ex){}
+		
+		String pno=request.getParameter("pno"); // 엄마 글 번호 넘기고 
+		
+		// 클라이언트가 입력한 데이터를 가지고 와야...
+		String name=request.getParameter("name");
+		String subject=request.getParameter("subject");
+		String content=request.getParameter("content");
+		String pwd=request.getParameter("pwd");
+		
+		// 클라이언트가 입력해준 데이터 VO에 저장 
+		BoardVO vo = new BoardVO();
+		vo.setName(name);
+		vo.setSubject(subject);
+		vo.setContent(content);
+		vo.setPwd(pwd);	
+		
+		// DAO 연결-이 vo를 가지고 답글을 isnert하게 
+		ReplyBoardDAO.replyReplyData(Integer.parseInt(pno), vo);
+				
+		return "redirect:../reply/list.do";
+		/*
+		 * 	Q. redirect하는 것과 include 하는 것의 차이? 
+		 *  ( return "redirect:../reply/list.do"; 하는 것과 
+		 *    request.setAttribute("main_jsp", "../reply/list.jsp");
+			  return "../main/main.jsp"; 하는 것의 차이  )  
+		 * 	 - redirect하면 list.do 니까 list.do 들어올 때 메소드를 실행하는 것. 
+		 *   - 이에 반해, incldue는 list.do하는게 아니니까 @RequestMapping("reply/list.do") 밑의 메소드를 실행시키지 않는다. 
+		 * 
+		 * 
+		 */
+	}
+	
+	// [삭제하기] 
+	@RequestMapping("reply/delete.do")
+	public String reply_delete(HttpServletRequest request,HttpServletResponse response)
+	{
+		String no=request.getParameter("no"); 
+		request.setAttribute("no", no); // no를 request에 싣는다 - delete.jsp에서 form의 action으로 delete_ok.do로 no를 넘길거라서...
+		
+		request.setAttribute("main_jsp", "../reply/delete.jsp"); // main에 include시킴 - main은 delete.jsp와 request 공유함
+		return "../main/main.jsp";
+	}
+	
+	// [삭제하기] 
+	@RequestMapping("reply/delete_ok.do")
+	public String reply_delete_ok(HttpServletRequest request,HttpServletResponse response)
+	{
+		// delete.jsp에서 hidden input으로 받은 데이터 두개를 받는다 
+		String no=request.getParameter("no");  
+		String pwd=request.getParameter("pwd"); 
+		
+		// DAO 연결  
+		boolean bCheck=ReplyBoardDAO.replyDeleteData(Integer.parseInt(no),pwd);
+		
+		request.setAttribute("bCheck", bCheck);
+		
+		return "../reply/delete_ok.jsp";  // 비번 체크 후, 비번 맞을 때의 동작이랑 비번 틀릴 때의 동작 달라야. 비번 유효성 체크를 delete_ok.jsp에서 alert로 해줄거라서 일로 넘겼음
+	}
+	
+	
 }
 
 

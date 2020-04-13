@@ -1,15 +1,23 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.sist.mapper.reply-mapper">
+	<!-- 답변형 게시판 ('묻고 답하기') 관련 mapper  -->
+
+	<!-- [글 목록] -->
+	<!-- 1. 리스트 데이터 받아옴 -->
 	<select id="replyListData" resultType="BoardVO" parameterType="hashmap"> <!-- parameterType을 "java.util.Map"으로 줘도 되고 "hashmap"으로 줘도 됨 -->
 		SELECT no,subject,name,regdate,hit,group_tab,num
 		FROM (SELECT no,subject,name,regdate,hit,group_tab,rownum as num
 		FROM (SELECT no,subject,name,regdate,hit,group_tab
 		FROM replyBoard ORDER BY group_id DESC,group_step ASC)) 
 		WHERE num BETWEEN #{start} AND #{end}
+	</select>     
+	<!-- 2. 총 페이지 받아옴 -->
+	<select id="replyTotalPage" resultType="int">
+		SELECT CEIL(COUNT(*)/15.0) FROM replyBoard
 	</select>
-	<!-- resultType: 이 SQL 구문을 실행한 결과를 BoardVO에다가 받아라. -->
-	
+
+	<!-- [글 검색] -->
 	<select id="replyFindData" resultType="BoardVO" parameterType="hashmap">
 		SELECT no,subject,name,regdate,hit
 		FROM replyBoard 
@@ -22,17 +30,21 @@
 	<!-- fs, ss 변수
 	     - 이름/제목/내용 선택하는 셀렉트창의 데이터를 fs(필드 스트링)로, 검색어를 입력하는 인풋창에 들어오는 데이터를 ss로 뒀음 -->
 	<!-- 검색창의 이름이 VO에 존재하지 않으니까 Map에다가 싣어서 와야 -->
+
 	
-	<select id="replyTotalPage" resultType="int">
-		SELECT CEIL(COUNT(*)/15.0) FROM replyBoard
-	</select>
-	
+	<!-- [글 상세페이지] -->
+	<!-- 1. 상세페이지 데이터 가져옴 -->
 	<select id="replyDetailData" resultType="BoardVO" parameterType="int">
 		SELECT *
 		FROM replyBoard
 		WHERE no=#{no}
 	</select>
-	
+	<!-- 2. 상세보기한 글의 조회수 1 증가시킴 -->
+	<update id="hitIncrement" parameterType="int">
+		UPDATE replyBoard
+		SET hit=hit+1
+		WHERE no=#{no}
+	</update>
 	<!-- [replyBoard table] 
 	NO         NOT NULL NUMBER         
 	NAME       NOT NULL VARCHAR2(34)   
@@ -48,13 +60,7 @@
 	DEPTH               NUMBER  
 	 -->
 	 
-	<update id="hitIncrement" parameterType="int">
-		UPDATE replyBoard
-		SET hit=hit+1
-		WHERE no=#{no}
-	</update>
-	 
-	 
+	<!-- [글쓰기] -->
 	<insert id="replyInsertData" parameterType="BoardVO">
 	 	<selectKey keyProperty="no" resultType="int" order="BEFORE"> <!-- order="BEFORE": 먼저 실행해라.. -->
  			SELECT NVL(MAX(no)+1,1) as no FROM replyBoard 
@@ -71,18 +77,19 @@
 		)
 	</insert>
 	
+	<!-- [글 수정] -->
+	<!-- 1. 글 수정화면에서, 이전에 입력했던 데이터 넣어서 보여줌 -->
 	<select id="getInfoForUpdate" resultType="BoardVO" parameterType="int">
 		SELECT no,regdate,name,hit,subject,content
 		FROM replyBoard
 		WHERE no=#{no}
-	
 	</select>
-	
+	<!-- 2. 글 수정화면에서 입력한 비번이 DB에 있는 비번과 일치하는지 확인 -->
 	<select id="replyCheckRealPwd" resultType="String" parameterType="int" >
 		SELECT pwd FROM replyBoard
 		WHERE no=#{no}
 	</select>
-	
+	<!-- 3. 수정함 (데이터 업데이트) -->
 	<update id="replyUpdateData" parameterType="BoardVO">
 		UPDATE replyBoard
 		SET
@@ -93,7 +100,72 @@
 	</update>
 	
 	
-			
+	<!-- ★★★ [답글달기] ★★★ -->
+	<!-- 1. 엄마 글의 정보를 먼저 읽어 들어온다  ==> 여기서 읽은 정보 2.3.에서 사용 -->
+	<select id="replyParentInfoData" resultType="BoardVO" parameterType="int">
+		SELECT group_id,group_step,group_tab
+		FROM replyBoard
+		WHERE no=#{pno}
+	</select>
+	<!-- 2. 같은 그룹 안에 있는 글들의 group_step 1씩 증가시킨다 -->
+	<update id="replyGroupStepIncrement" parameterType="BoardVO">
+		UPDATE replyBoard SET
+		group_step=group_step+1
+		WHERE group_id=#{group_id} AND group_step>#{group_step}
+	</update>
+	<!-- 3. 답글 insert함 -->
+	<insert id="replyReplyData" parameterType="BoardVO">
+		<selectKey keyProperty="no" resultType="int" order="BEFORE"> <!-- order="BEFORE": 먼저 실행해라.. -->
+ 			SELECT NVL(MAX(no)+1,1) as no FROM replyBoard 
+ 		</selectKey>		
+		INSERT INTO replyBoard(no,name,subject,content,pwd,group_id,group_step,group_tab,root)
+		VALUES(
+			#{no},
+			#{name},
+			#{subject},
+			#{content},
+			#{pwd},
+			#{group_id},  <!-- group_id, group_step,group_tab,root는 DAO에서 1번으로부터 데이터를 받은 후 넘긴다. -->
+			#{group_step},
+			#{group_tab}, 
+			#{root} 
+			<!-- depth는 디폴트값 0으로 들어가니까 depth 따로 안 넣었음 -->
+		)
+	</insert>
+	<!-- 4.엄마글의 depth(자기 밑에 몇 개를 달고 있는지) 1개 증가시킴 -->
+	<update id="replyDetphIncrement" parameterType="int">
+		UPDATE replyBoard SET 
+		depth=depth+1
+		WHERE no=#{pno}
+	</update>
+	
+	
+	<!-- [삭제] -->
+	<!-- 1. 비밀번호 맞는지 체크 ==> 위의 replyCheckRealPwd 재활용할 예정 -->
+	<!-- 2. 삭제할 글의 데이터를 가지고 온다. -->
+	<select id="replyDeleteInfoData" resultType="BoardVO" parameterType="int">
+		SELECT root,depth 
+		FROM replyBoard
+		WHERE no=#{no}
+	</select>
+	<!-- 3-1. depth가 0인 경우 (자식 글 없는 경우) ==> 삭제  -->
+	<delete id="replyDeleteData" parameterType="int">
+		DELETE FROM replyBoard
+		WHERE no=#{no}
+	</delete>
+	<!-- 3-2. depth가 0이 아닌 경우 (자식 글이 1개 이상 있는 경우) ==> 그냥 삭제하지 말고 '관리자가 삭제한 글이다'라고 바꿔줘야... -->
+	<update id="replySubjectUpdate" parameterType="BoardVO">  
+		UPDATE replyBoard SET
+		subject=#{subject},
+		content=#{content}
+		WHERE no=#{no}
+	</update>
+	<!-- 4. depth 감소시킨다. -->
+	<update id="replyDepthDecrement" parameterType="int">
+		UPDATE replyBoard SET
+		depth=depth-1
+		WHERE no=#{no}
+	</update>
 </mapper>
 
 
