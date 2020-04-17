@@ -21,11 +21,10 @@ h2 {
 <body>
 	<div class="container">
 		<h2>글쓰기</h2>
-		<img src="reply.png">
+		<img src="../freeboard/jsp_board2.png" style="width: 900px; height: 200px;">
 		<div class="row">
-			<form method=post action="insert_ok.do">
+			<form method=post action="../freeboard/insert_ok.do">
 			 <!-- action: insert_ok.jsp 에서 데이터 받아서 처리 -->
-			 <!-- 업로드게시판: enctype="multipart/form-data" 써야 파일첨부됨 (cos.jar 이용한것) -->
 				<table class="table table-hover">
 					<tr>
 						<th width=20% class="text-right success">이름</th>

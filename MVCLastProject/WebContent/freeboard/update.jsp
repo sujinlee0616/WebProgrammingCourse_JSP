@@ -1,4 +1,3 @@
-<!-- 사용자에게 보여지는 글쓰기 화면 -->
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -20,29 +19,30 @@ h2 {
 </head>
 <body>
 	<div class="container">
-		<h2>글쓰기</h2>
-		<img src="reply.png">
+		<h2>수정하기</h2>
+		<img src="../freeboard/jsp_board2.png" style="width: 900px; height: 200px;">
 		<div class="row">
-			<form method=post action="insert_ok.do">
-			 <!-- action: insert_ok.jsp 에서 데이터 받아서 처리 -->
-			 <!-- 업로드게시판: enctype="multipart/form-data" 써야 파일첨부됨 (cos.jar 이용한것) -->
+			<form method=post action="../freeboard/update_ok.do">
+			<!-- action: update_ok.jsp 에서 데이터 받아서 처리 -->
 				<table class="table table-hover">
 					<tr>
 						<th width=20% class="text-right success">이름</th>
 						<td width=80%>
-							<input type="text" name="name" size=15 required>
+							<input type="text" name="name" size=15 required value=${vo.name }>
+							<input type="hidden" name="no" value=${vo.no }>
+							<!-- hidden으로 no값 넘겨줘야 -->
 						</td>
 					</tr>
 					<tr>
 						<th width=20% class="text-right success">제목</th>
 						<td width=80%>
-							<input type="text" name="subject" size=50 required>
+							<input type="text" name="subject" size=50 required value=${vo.subject }>
 						</td>
 					</tr>
 					<tr>
 						<th width=20% class="text-right success">내용</th>
 						<td width=80%>
-							<textarea rows="8" cols="50" name="content" required></textarea>
+							<textarea rows="8" cols="50" name="content" required>${vo.content }</textarea>
 						</td>
 					</tr>
 					<tr>

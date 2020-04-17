@@ -34,7 +34,7 @@
  - SpringTestProject     
  - MVCProject6:    
  - MVCProject7: MyBatis JOIN - EmpVO,emp-mapper 참고    
- - MVCLastProject: jQuery 이론 및 실습, AJAX, 회원가입 우편번호 검색, JSON 파싱    
+ - MVCLastProject★★★: PL/SQL, jQuery 이론 및 실습, AJAX, 회원가입 우편번호 검색, JSON 파싱    
    1) 회원가입: 우편번호 검색에 AJAX 사용.     
    2) 답글형 게시판: '묻고답하기(replyBoard)'      
     - 글 수정 시 비밀번호 확인: AJAX    
