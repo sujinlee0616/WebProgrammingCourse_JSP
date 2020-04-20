@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!-- Config.xml: 공통 파일. Connection 관련. -->
+<!DOCTYPE configuration
+ PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+ "http://mybatis.org/dtd/mybatis-3-config.dtd">
+ <configuration>  
+  <typeAliases> <!-- VO 등록 -->
+  	<typeAlias type="com.sist.dao.MovieVO" alias="MovieVO"/>
+  	<typeAlias type="com.sist.dao.ReserveDateVO" alias="ReserveDateVO"/>
+  	<typeAlias type="com.sist.dao.ReserveTheaterVO" alias="ReserveTheaterVO"/>
+  	<typeAlias type="com.sist.dao.ReserveTimeVO" alias="ReserveTimeVO"/>
+  	<typeAlias type="com.sist.dao.ReserveVO" alias="ReserveVO"/>
+  </typeAliases>
+  <environments default="development">
+  	<environment id="development">
+  		<transactionManager type="JDBC"></transactionManager> <!-- 커밋/롤백 어떻게 할거냐 -->
+  		<!-- 트랜잭션(Transaction 이하 트랜잭션)이란, 데이터베이스의 상태를 변화시키기 해서 수행하는 작업의 단위를 뜻한다. -->
+  		<dataSource type="POOLED"> <!-- 오라클 정보 넘긴다 -->
+			<property name="driver" value="oracle.jdbc.driver.OracleDriver"/>
+			<property name="url" value="jdbc:oracle:thin:@localhost:1521:XE"/>
+			<property name="username" value="hr"/>
+			<property name="password" value="happy"/>
+  		</dataSource>
+  	</environment>
+  </environments>
+  <mappers> <!-- XML 파일 등록 -->
+  	<mapper resource="com/sist/dao/reserve-mapper.xml"></mapper>
+  </mappers> 
+  
+ </configuration>
+ 
+ 
+ 
+ 

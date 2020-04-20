@@ -39,7 +39,8 @@
    2) 답글형 게시판: '묻고답하기(replyBoard)'      
     - 글 수정 시 비밀번호 확인: AJAX    
    3) 댓글형 게시판: '자유게시판(freeBoard)', PL/SQL 사용     
- - RecipeProject:     
+ - RecipeProject     
+ - MVCReserveProject: 예약      
    
 
 # WebProgrammingCourse_JSP
