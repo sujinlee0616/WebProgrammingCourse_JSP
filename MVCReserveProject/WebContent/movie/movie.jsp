@@ -10,13 +10,16 @@
 <script type="text/javascript" src="http://code.jquery.com/jquery.js"></script>
 <script type="text/javascript">
 $(function(){
+	// reserve.do에서 .movie_title 영역에 hover하면 마우스 커서 모양 변경 
 	$('.movie_title').hover(function(){ // if hover했으면 
 		$(this).css('cursor','pointer');	
-	},function(){ // else
+	},function(){ // else (hover 안 하면)
 		$(this).css('cursor','none');
 	});
 	
-	// 이것들은, reserve.jsp에 마치 include되는것처럼 동작하면서, #movie-list가 아닌 reserve.jsp의 다른 영역에도 데이터를 전달하게 된다.   
+	// reserve.do의 극장선택 영역(#movie-list)에 출력 
+	// - 이것들은, reserve.jsp에 마치 include되는것처럼 동작하면서, #movie-list가 아닌 reserve.jsp의 다른 영역에도 데이터를 전달하게 된다. 
+	// - 여기서 theater.do로 정보를 넘김 ★★★ 
 	$('.movie_title').click(function(){
 		var poster=$(this).attr("data-poster");
 		$('#movie-poster').attr("src",poster);  
@@ -25,7 +28,7 @@ $(function(){
 		console.log(poster);
 		
 		// 참고) AJAX로 값을 가지고 오면, 가상으로 들어가 있기 때문에  include와 똑같은 역할을 한다.
-		var tno=$(this).attr("data-theater");  // <==== 얘를 못받음 왜??? 
+		var tno=$(this).attr("data-theater"); 
 		console.log(tno);
 		
 		$.ajax({

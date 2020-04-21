@@ -10,6 +10,7 @@
   	<typeAlias type="com.sist.dao.ReserveTheaterVO" alias="ReserveTheaterVO"/>
   	<typeAlias type="com.sist.dao.ReserveTimeVO" alias="ReserveTimeVO"/>
   	<typeAlias type="com.sist.dao.ReserveVO" alias="ReserveVO"/>
+  	<typeAlias type="com.sist.dao.MemberVO" alias="MemberVO"/>
   </typeAliases>
   <environments default="development">
   	<environment id="development">

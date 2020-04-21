@@ -11,7 +11,9 @@
 <script type="text/javascript">
 $(function(){
 	
-	// movie.do의 HTML을 #movie-list에 담음 ==> movie.jsp를 include 시키는 것처럼 된다. 
+	// 1. '영화선택' 부분 : movie.do의 HTML을 reserve.jsp의 #movie-list의 HTML에 담음 
+	// 	==> reserve.jsp가 movie.do를 include 하는 것처럼 된다. 
+	//  ==> 기능 구현은 movie.do에서 처리 
 	$.ajax({
 		type:'POST',
 		url:'movie.do',
@@ -26,7 +28,9 @@ $(function(){
 		}
 	})
 	
-	// date.do의 HTML을 #movie-date에 담음 ==> date.jsp를 include 시키는 것처럼 된다. 
+	// 2. '극장선택' 부분 : date.do의 HTML을 reserve.jsp의 #movie-date에 담음 
+	// 	==> date.do를 include 시키는 것처럼 된다.
+	//  ==> 기능 구현은 date.do에서 처리 
 	$.ajax({
 		type:'POST',
 		url:'date.do',
@@ -40,9 +44,7 @@ $(function(){
 			alert(e);
 		}
 	})
-	
-	
-	
+
 })
 </script>
 </head>
@@ -51,6 +53,7 @@ $(function(){
 		<div class="row">
 			<table class="table">
 				<tr>
+					<!-- ========================= 1. 영화선택 영역 ========================= -->
 					<td width="20%" height="500px">
 						<table class="table">
 							<tr>
@@ -61,6 +64,7 @@ $(function(){
 						<div style="overflow-y:scroll; height:450px;" id="movie-list"> <!-- 스크롤바 생기게 -->
 						</div>
 					</td>
+					<!-- ========================= 2. 극장선택 영역 ========================= -->
 					<td width="20%" height="500px">
 						<table class="table">
 							<tr>
@@ -71,6 +75,7 @@ $(function(){
 						<div style="overflow-y:scroll; height:450px;" id="movie-theater">
 						</div>
 					</td>
+					<!-- ========================= 3. 날짜선택 영역 ========================= -->
 					<td width="30%" height="500px">
 						<table class="table">
 							<tr>
@@ -81,6 +86,7 @@ $(function(){
 						<div id="movie-date">
 						</div>
 					</td>
+					<!-- ========================= 4. 예매정보 영역 ★ ========================= -->
 					<td width="30%" rowspan="2">
 						<table class="table">
 							<tr>
@@ -107,25 +113,25 @@ $(function(){
 							<tr>
 								<td>
 									<span style="color:#999;">극장</span>
-									<span id="movie-theater" ></span>
+									<span id="movie-theater2" ></span>
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<span style="color:#999;">날짜</span>
-									<span id="movie-date" ></span>
+									<span id="movie-date2" ></span>
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<span style="color:#999;">시간</span>
-									<span id="movie-time" ></span>
+									<span id="movie-time2" ></span>
 								</td>
 							</tr>
 							<tr>
 								<td>
 									<span style="color:#999;">인원</span>
-									<span id="movie-inwon" ></span>
+									<span id="movie-inwon2" ></span>
 								</td>
 							</tr>
 							<tr>
@@ -136,26 +142,30 @@ $(function(){
 							</tr>
 							<tr>
 								<td class="text-center">
-									<input type="button" value="예매하기" class="btn btn-sm btn-danger">
+									<input type="button" value="예매하기" class="btn btn-sm btn-danger" disabled id="resBtn">
 								</td>
 							</tr>
 						</table>	
 					</td>
-				</tr>			
+				</tr>
 				<tr>
+					<!-- ========================= 5. 시간선택 영역 ========================= -->			
 					<td colspan="2" height="200px">
 						<table class="table">
 							<tr>
 								<td bgcolor="#ccccff" class="text-center">시간선택</td>
 							</tr>
 						</table>	
+						<div id="movie-time"></div>
 					</td>
+					<!-- ========================= 6. 인원선택 영역 ========================= -->		
 					<td width="20%" height="200px">
 						<table class="table">
 							<tr>
 								<td bgcolor="#ccccff" class="text-center">인원선택</td>
 							</tr>
 						</table>	
+						<div id="movie-inwon"></div>
 					</td>
 				</tr>
 			</table>
