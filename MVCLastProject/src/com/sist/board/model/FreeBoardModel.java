@@ -8,6 +8,7 @@ import com.sist.controller.RequestMapping;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import com.sist.dao.*;
+import com.sist.vo.BoardReplyVO;
 import com.sist.vo.BoardVO;
 
 @Controller
@@ -84,15 +85,45 @@ public class FreeBoardModel {
 	@RequestMapping("freeboard/detail.do")
 	public String freeboard_detail(HttpServletRequest request,HttpServletResponse response)
 	{
+		// =================================== 상세보기 ===================================
 		// 사용자 요청 데이터 (no) 받기
 		String no=request.getParameter("no");
 
 		// DAO 연동 
 		FreeBoardDAO dao=new FreeBoardDAO();
 		// VO를 받아서 JSP로 보내준다.
-		BoardVO vo=dao.freeBoardInfoData(Integer.parseInt(no),1); // 두번째 parameter는 type임. type=1이면 상세보기, type=2면 수정하기 
+		BoardVO vo=dao.freeBoardInfoData(Integer.parseInt(no),1); // 두번째 parameter는 type임. type=1이면 상세보기, type=2면 수정하기
 		
 		request.setAttribute("vo", vo);
+		
+		// =================================== 댓글 ===================================
+		
+		// [1. 댓글 목록] 
+		String page=request.getParameter("page"); 
+		if(page==null)
+			page="1";
+		System.out.println("page="+page);
+		int curpage=Integer.parseInt(page);
+		Map map=new HashMap();
+		int rowSize=10;
+		int start=rowSize*(curpage-1)+1; // 시작 댓글
+		int end=curpage*rowSize; // 마지막 댓글 
+		map.put("pStart", start); // freeboard-reply-mapper.xml에서 설정한 key값 
+		map.put("pEnd", end);
+		map.put("pBno", Integer.parseInt(no)); 
+		System.out.println("map="+map);
+		List<BoardReplyVO> list=FreeBoardReplyDAO.replyListData(map);
+		System.out.println("Model list="+list);
+		
+		// [2. 댓글 총 페이지 가져옴] 
+		map=new HashMap(); // map 새로 생성 ==> 앞에서 썼떤 map이 아닌 새로운 map 
+		map.put("pBno", Integer.parseInt(no));
+		int totalpage=FreeBoardReplyDAO.replyTotalPage(map);
+		
+		request.setAttribute("list", list);
+		request.setAttribute("curpage", curpage);
+		request.setAttribute("totalpage", totalpage);
+		
 		request.setAttribute("main_jsp", "../freeboard/detail.jsp");
 		return "../main/main.jsp";
 	}
@@ -183,6 +214,9 @@ public class FreeBoardModel {
 		
 		return "../freeboard/delete_ok.jsp";
 	}
+	
+	
+	
 	
 	
 	
