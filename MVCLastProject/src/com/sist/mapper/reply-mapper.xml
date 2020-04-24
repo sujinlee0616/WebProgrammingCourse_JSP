@@ -107,7 +107,7 @@
 		FROM replyBoard
 		WHERE no=#{pno}
 	</select>
-	<!-- 2. 같은 그룹 안에 있는 글들의 group_step 1씩 증가시킨다 -->
+	<!-- 2. 같은 그룹 안에 있는, 기존 글들의 group_step(같은 그룹내에서 출력 순서)을 1씩 증가시킨다 -->
 	<update id="replyGroupStepIncrement" parameterType="BoardVO">
 		UPDATE replyBoard SET
 		group_step=group_step+1
